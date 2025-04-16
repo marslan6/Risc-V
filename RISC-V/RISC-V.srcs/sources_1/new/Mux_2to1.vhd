@@ -32,74 +32,35 @@ use IEEE.STD_LOGIC_1164.ALL;
 --use UNISIM.VComponents.all;
 
 entity Mux_2to1 is
-	generic 
-	(
-		-- Required for parametric design
-
-		c_clk_frequency : integer := 100_000_000;
-		c_sclk_frequency : integer := 100_000_000;
-		c_i2c_frequency : integer := 400_000;
-		c_bitnum : integer range 1 to 8 := 8; 
-		c_will_simulate : std_logic := '0';
-		c_will_ring : boolean := false;
-		c_config_regs: std_logic_vector(7 downto 0) := x"A7"
-	);
-	port 
-	(
-		-- Either std_logic or std_logic_vector is used as a in/out type
-		-- Other types could be used but not suggested.
-	  	input1_i : in std_logic_vector(c_bitnum-1 downto 0);
-		input2_i : in std_logic;
-		clk : in std_logic;
-		output1_o : out std_logic; 	
-		output2_o : out std_logic 
-	);
-end entity Mux_2to1;
+generic
+(
+	W : integer range 1 to 64 := 8
+);
+port 
+(	
+	sel_i : in std_logic;
+	input0_i : in std_logic_vector(W-1 downto 0);
+	input1_i : in std_logic_vector(W-1 downto 0);
+	output0_o : out std_logic_vector(W-1 downto 0)
+);
+end entity;
 
 
-architecture Behavioral of Mux_2to1 is
-
-
-
-
-	-- (others => '0')
-	constant c_constant1 : integer := 30;
-	constant c_constant2 : std_logic_vector(c_bitnum-1 downto 0) := (others => '0');
-	constant c_timer_1ms_slim : integer := c_clk_frequency / 1000;
-
-	subtype t_byte is std_logic_vector (7 downto 0);
-	subtype t_decimal_digit is integer range 0 to 9;
-	type t_state is (S_START, S_OPERATION, S_TERMINATE, S_IDLE); -- enum type
-	type r_uart_pars is record -- record type / structs in C
-		param1 : std_logic;
-		param2 : std_logic_vector(3 downto 0); 
-	end record;
-
-	signal s0 : std_logic_vector(c_bitnum-1 downto 0) := x"00";
-	signal s1 : std_logic_vector(c_bitnum-1 downto 0) := x"00";
-	signal s2 : integer range 0 to 255 := 0; -- 8 bit hardware used
-	signal s3 : integer := 0; -- 32 bit hardware
-	signal s4 : std_logic := '0';
-	signal state : t_state := S_START;
-	signal s6 : r_uart_pars;
-	signal opcode : t_byte := x"E4";
-	signal bcd : t_decimal_digit := 3;
-
+architecture rtl of Mux_2to1 is
 begin
 
-	P_COMB : process (s0, state) begin
-		output2_o <= '1';
-	end process P_COMB;
-
-
-	P_SEQ : process (clk) begin
-			if rising_edge(clk) then
-
-				output1_o <= '1';
+	P_COMBINATIONAL : process (sel_i, input0_i, input1_i) 
+	begin
 	
+		case (sel_i) is
+			when '0' =>
+				output0_o <= input0_i;
+			when '1' =>
+				output0_o <= input1_i;
+			when others =>
+				output0_o <= (others => '0');
+		end case;
+	
+	end process;
 
-
-			end if;
-	end process P_SEQ;
-
-end Behavioral;
+end architecture;
