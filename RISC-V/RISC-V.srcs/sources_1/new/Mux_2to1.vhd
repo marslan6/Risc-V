@@ -1,18 +1,14 @@
 ----------------------------------------------------------------------------------
--- Company: 
--- Engineer: 
+-- Engineer: Mehmet Arslan
 -- 
--- Create Date: 04/15/2025 09:21:19 PM
--- Design Name: 
--- Module Name: Mux_2to1 - Behavioral
--- Project Name: 
--- Target Devices: 
--- Tool Versions: 
--- Description: 
+-- Create Date: 04/17/2025 07:31:30 PM
+-- Design Name: Test Bench for Mux_2to1
+-- Module Name: TB_Mux_2to1 - Behavioral
+-- Project Name: Test Bench for Mux_2to1
+-- Target Devices: Xilinx FPGAs
 -- 
--- Dependencies: 
 -- 
--- Revision:
+-- Revision: 0.0.0.1
 -- Revision 0.01 - File Created
 -- Additional Comments:
 -- 
@@ -46,7 +42,7 @@ port
 end entity;
 
 
-architecture rtl of Mux_2to1 is
+architecture Rtl of Mux_2to1 is
 begin
 
 	P_COMBINATIONAL : process (sel_i, input0_i, input1_i) 
