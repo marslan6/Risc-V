@@ -2,9 +2,9 @@
 -- Engineer: Mehmet Arslan
 -- 
 -- Create Date: 04/17/2025 07:31:30 PM
--- Design Name: Test Bench for Mux_2to1
--- Module Name: TB_Mux_2to1 - Behavioral
--- Project Name: Test Bench for Mux_2to1
+-- Design Name: Mux_2to1 Module
+-- Module Name: Mux_2to1 - Behavioral
+-- Project Name: Mux_2to1 Module
 -- Target Devices: Xilinx FPGAs
 -- 
 -- 
@@ -13,10 +13,8 @@
 -- Additional Comments:
 -- 
 ----------------------------------------------------------------------------------
-
-
-library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
 
 -- Uncomment the following library declaration if using
 -- arithmetic functions with Signed or Unsigned values
@@ -27,36 +25,33 @@ use IEEE.STD_LOGIC_1164.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity Mux_2to1 is
-generic
-(
-	W : integer range 1 to 64 := 8
-);
-port 
-(	
-	sel_i : in std_logic;
-	input0_i : in std_logic_vector(W-1 downto 0);
-	input1_i : in std_logic_vector(W-1 downto 0);
-	output0_o : out std_logic_vector(W-1 downto 0)
-);
-end entity;
+ENTITY Mux_2to1 IS
+	GENERIC (
+		W : INTEGER RANGE 1 TO 64 := 8
+	);
+	PORT (
+		sel_i : IN STD_LOGIC;
+		input0_i : IN STD_LOGIC_VECTOR(W - 1 DOWNTO 0);
+		input1_i : IN STD_LOGIC_VECTOR(W - 1 DOWNTO 0);
+		output0_o : OUT STD_LOGIC_VECTOR(W - 1 DOWNTO 0)
+	);
+END ENTITY;
 
+ARCHITECTURE Rtl OF Mux_2to1 IS
+BEGIN
 
-architecture Rtl of Mux_2to1 is
-begin
+	P_COMBINATIONAL : PROCESS (sel_i, input0_i, input1_i)
+	BEGIN
 
-	P_COMBINATIONAL : process (sel_i, input0_i, input1_i) 
-	begin
-	
-		case (sel_i) is
-			when '0' =>
+		CASE (sel_i) IS
+			WHEN '0' =>
 				output0_o <= input0_i;
-			when '1' =>
+			WHEN '1' =>
 				output0_o <= input1_i;
-			when others =>
-				output0_o <= (others => '0');
-		end case;
-	
-	end process;
+			WHEN OTHERS =>
+				output0_o <= (OTHERS => '0');
+		END CASE;
 
-end architecture;
+	END PROCESS;
+
+END ARCHITECTURE;
