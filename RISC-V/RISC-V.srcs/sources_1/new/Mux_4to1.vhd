@@ -43,7 +43,8 @@ END ENTITY Mux_4to1;
 ARCHITECTURE RTL OF Mux_4to1 IS
 BEGIN
 
-    P_COMBINATIONAL : PROCESS (select_i, input0_i, input1_i, input2_i, input3_i) BEGIN
+    P_COMBINATIONAL : PROCESS (select_i, input0_i, input1_i, input2_i, input3_i)
+    BEGIN
 
         CASE (select_i) IS
             WHEN "00" =>
