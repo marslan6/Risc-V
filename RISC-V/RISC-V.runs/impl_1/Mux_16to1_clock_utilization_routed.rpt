@@ -1,10 +1,10 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 --------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version      : Vivado v.2024.1 (win64) Build 5076996 Wed May 22 18:37:14 MDT 2024
-| Date              : Sat Apr 19 23:17:14 2025
+| Date              : Sun Apr 20 20:35:09 2025
 | Host              : DESKTOP-SFGPEL6 running 64-bit major release  (build 9200)
-| Command           : report_clock_utilization -file Mux_4to1_clock_utilization_routed.rpt
-| Design            : Mux_4to1
+| Command           : report_clock_utilization -file Mux_16to1_clock_utilization_routed.rpt
+| Design            : Mux_16to1
 | Device            : xczu7ev-ffvc1156
 | Speed File        : -2  PRODUCTION 1.30 05-15-2022
 | Temperature Grade : E
