@@ -13,153 +13,146 @@
 -- Additional Comments:
 -- 
 ----------------------------------------------------------------------------------
-LIBRARY IEEE;
-USE IEEE.STD_LOGIC_1164.ALL;
-USE IEEE.NUMERIC_STD.ALL;
+library IEEE;
+use IEEE.STD_LOGIC_1164.all;
+use IEEE.NUMERIC_STD.all;
 
 -- Uncomment the following library declaration if instantiating
 -- any Xilinx leaf cells in this code.
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-ENTITY TB_Decoder_4to16 IS
+entity TB_Decoder_4to16 is
     --  Port ( );
-END ENTITY TB_Decoder_4to16;
+end entity TB_Decoder_4to16;
 
-ARCHITECTURE RTL OF TB_Decoder_4to16 IS
+architecture RTL of TB_Decoder_4to16 is
+    signal tb_input_i : std_logic_vector(3 downto 0);
+    signal tb_output_o : std_logic_vector(15 downto 0);
+begin
 
-    SIGNAL tb_input_i : STD_LOGIC_VECTOR(3 DOWNTO 0);
-    SIGNAL tb_output_o : STD_LOGIC_VECTOR(15 DOWNTO 0);
-
-BEGIN
-
-    DUT_DECODER4X16 : ENTITY WORK.Decoder_4to16(RTL)
-        PORT MAP(
+    DUT_DECODER4X16 : entity WORK.Decoder_4to16(RTL)
+        port map(
             input_i => tb_input_i,
             output_o => tb_output_o
         );
 
-    P_COMBINATIONAL : PROCESS
-    BEGIN
+    P_COMBINATIONAL : process
+    begin
         ------------------------------------------------------------------
         ------------------------------------------------------------------
         ------------------------------------------------------------------
-        tb_input_i <= "0000";  
-        WAIT FOR 2 ns;  
-        ASSERT (tb_output_o = "0000000000000001") REPORT "TEST : 0 [FAILED]" SEVERITY warning;
+        tb_input_i <= "0000";
+        wait for 2 ns;
+        assert (tb_output_o = "0000000000000001") report "TEST : 0 [FAILED]" severity warning;
 
         ------------------------------------------------------------------
         ------------------------------------------------------------------
         ------------------------------------------------------------------
-        tb_input_i <= "0001";  
-        WAIT FOR 2 ns;  
-        ASSERT (tb_output_o = "0000000000000010") REPORT "TEST : 1 [FAILED]" SEVERITY warning;
-        
-        ------------------------------------------------------------------
-        ------------------------------------------------------------------
-        ------------------------------------------------------------------
-        tb_input_i <= "0010";  
-        WAIT FOR 2 ns;  
-        ASSERT (tb_output_o = "0000000000000100") REPORT "TEST : 2 [FAILED]" SEVERITY warning;
+        tb_input_i <= "0001";
+        wait for 2 ns;
+        assert (tb_output_o = "0000000000000010") report "TEST : 1 [FAILED]" severity warning;
 
         ------------------------------------------------------------------
         ------------------------------------------------------------------
         ------------------------------------------------------------------
-        tb_input_i <= "0011";  
-        WAIT FOR 2 ns;  
-        ASSERT (tb_output_o = "0000000000001000") REPORT "TEST : 3 [FAILED]" SEVERITY warning;
-
-         ------------------------------------------------------------------
-        ------------------------------------------------------------------
-        ------------------------------------------------------------------
-        tb_input_i <= "0100";  
-        WAIT FOR 2 ns;  
-        ASSERT (tb_output_o = "0000000000010000") REPORT "TEST : 4 [FAILED]" SEVERITY warning;
+        tb_input_i <= "0010";
+        wait for 2 ns;
+        assert (tb_output_o = "0000000000000100") report "TEST : 2 [FAILED]" severity warning;
 
         ------------------------------------------------------------------
         ------------------------------------------------------------------
         ------------------------------------------------------------------
-        tb_input_i <= "0101";  
-        WAIT FOR 2 ns;  
-        ASSERT (tb_output_o = "0000000000100000") REPORT "TEST : 5 [FAILED]" SEVERITY warning;
-        
-        ------------------------------------------------------------------
-        ------------------------------------------------------------------
-        ------------------------------------------------------------------
-        tb_input_i <= "0110";  
-        WAIT FOR 2 ns;  
-        ASSERT (tb_output_o = "0000000001000000") REPORT "TEST : 6 [FAILED]" SEVERITY warning;
+        tb_input_i <= "0011";
+        wait for 2 ns;
+        assert (tb_output_o = "0000000000001000") report "TEST : 3 [FAILED]" severity warning;
 
         ------------------------------------------------------------------
         ------------------------------------------------------------------
         ------------------------------------------------------------------
-        tb_input_i <= "0111";  
-        WAIT FOR 2 ns;  
-        ASSERT (tb_output_o = "0000000010000000") REPORT "TEST : 7 [FAILED]" SEVERITY warning;
-
-
-         ------------------------------------------------------------------
-        ------------------------------------------------------------------
-        ------------------------------------------------------------------
-        tb_input_i <= "1000";  
-        WAIT FOR 2 ns;  
-        ASSERT (tb_output_o = "0000000100000000") REPORT "TEST : 8 [FAILED]" SEVERITY warning;
+        tb_input_i <= "0100";
+        wait for 2 ns;
+        assert (tb_output_o = "0000000000010000") report "TEST : 4 [FAILED]" severity warning;
 
         ------------------------------------------------------------------
         ------------------------------------------------------------------
         ------------------------------------------------------------------
-        tb_input_i <= "1001";  
-        WAIT FOR 2 ns;  
-        ASSERT (tb_output_o = "0000001000000000") REPORT "TEST : 9 [FAILED]" SEVERITY warning;
-        
-        ------------------------------------------------------------------
-        ------------------------------------------------------------------
-        ------------------------------------------------------------------
-        tb_input_i <= "1010";  
-        WAIT FOR 2 ns;  
-        ASSERT (tb_output_o = "0000010000000000") REPORT "TEST : 10 [FAILED]" SEVERITY warning;
+        tb_input_i <= "0101";
+        wait for 2 ns;
+        assert (tb_output_o = "0000000000100000") report "TEST : 5 [FAILED]" severity warning;
 
         ------------------------------------------------------------------
         ------------------------------------------------------------------
         ------------------------------------------------------------------
-        tb_input_i <= "1011";  
-        WAIT FOR 2 ns;  
-        ASSERT (tb_output_o = "0000100000000000") REPORT "TEST : 11 [FAILED]" SEVERITY warning;
-
-
-         ------------------------------------------------------------------
-        ------------------------------------------------------------------
-        ------------------------------------------------------------------
-        tb_input_i <= "1100";  
-        WAIT FOR 2 ns;  
-        ASSERT (tb_output_o = "0001000000000000") REPORT "TEST : 12 [FAILED]" SEVERITY warning;
+        tb_input_i <= "0110";
+        wait for 2 ns;
+        assert (tb_output_o = "0000000001000000") report "TEST : 6 [FAILED]" severity warning;
 
         ------------------------------------------------------------------
         ------------------------------------------------------------------
         ------------------------------------------------------------------
-        tb_input_i <= "1101";  
-        WAIT FOR 2 ns;  
-        ASSERT (tb_output_o = "0010000000000000") REPORT "TEST : 13 [FAILED]" SEVERITY warning;
-        
+        tb_input_i <= "0111";
+        wait for 2 ns;
+        assert (tb_output_o = "0000000010000000") report "TEST : 7 [FAILED]" severity warning;
         ------------------------------------------------------------------
         ------------------------------------------------------------------
         ------------------------------------------------------------------
-        tb_input_i <= "1110";  
-        WAIT FOR 2 ns;  
-        ASSERT (tb_output_o = "0100000000000000") REPORT "TEST : 14 [FAILED]" SEVERITY warning;
+        tb_input_i <= "1000";
+        wait for 2 ns;
+        assert (tb_output_o = "0000000100000000") report "TEST : 8 [FAILED]" severity warning;
 
         ------------------------------------------------------------------
         ------------------------------------------------------------------
         ------------------------------------------------------------------
-        tb_input_i <= "1111";  
-        WAIT FOR 2 ns;  
-        ASSERT (tb_output_o = "1000000000000000") REPORT "TEST : 15 [FAILED]" SEVERITY warning;
+        tb_input_i <= "1001";
+        wait for 2 ns;
+        assert (tb_output_o = "0000001000000000") report "TEST : 9 [FAILED]" severity warning;
 
         ------------------------------------------------------------------
         ------------------------------------------------------------------
         ------------------------------------------------------------------
-        ASSERT (false) REPORT "ALL TESTS PASSED" SEVERITY failure;
+        tb_input_i <= "1010";
+        wait for 2 ns;
+        assert (tb_output_o = "0000010000000000") report "TEST : 10 [FAILED]" severity warning;
 
-    END PROCESS;
+        ------------------------------------------------------------------
+        ------------------------------------------------------------------
+        ------------------------------------------------------------------
+        tb_input_i <= "1011";
+        wait for 2 ns;
+        assert (tb_output_o = "0000100000000000") report "TEST : 11 [FAILED]" severity warning;
+        ------------------------------------------------------------------
+        ------------------------------------------------------------------
+        ------------------------------------------------------------------
+        tb_input_i <= "1100";
+        wait for 2 ns;
+        assert (tb_output_o = "0001000000000000") report "TEST : 12 [FAILED]" severity warning;
 
-END ARCHITECTURE RTL;
+        ------------------------------------------------------------------
+        ------------------------------------------------------------------
+        ------------------------------------------------------------------
+        tb_input_i <= "1101";
+        wait for 2 ns;
+        assert (tb_output_o = "0010000000000000") report "TEST : 13 [FAILED]" severity warning;
+
+        ------------------------------------------------------------------
+        ------------------------------------------------------------------
+        ------------------------------------------------------------------
+        tb_input_i <= "1110";
+        wait for 2 ns;
+        assert (tb_output_o = "0100000000000000") report "TEST : 14 [FAILED]" severity warning;
+
+        ------------------------------------------------------------------
+        ------------------------------------------------------------------
+        ------------------------------------------------------------------
+        tb_input_i <= "1111";
+        wait for 2 ns;
+        assert (tb_output_o = "1000000000000000") report "TEST : 15 [FAILED]" severity warning;
+
+        ------------------------------------------------------------------
+        ------------------------------------------------------------------
+        ------------------------------------------------------------------
+        assert (false) report "ALL TESTS PASSED" severity failure;
+    end process;
+    
+end architecture RTL;

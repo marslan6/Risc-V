@@ -14,65 +14,63 @@
 -- 
 ----------------------------------------------------------------------------------
 
-LIBRARY IEEE;
-USE IEEE.STD_LOGIC_1164.ALL;
-USE IEEE.NUMERIC_STD.ALL;
+library IEEE;
+use IEEE.STD_LOGIC_1164.all;
+use IEEE.NUMERIC_STD.all;
 
 -- Uncomment the following library declaration if instantiating
 -- any Xilinx leaf cells in this code.
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-ENTITY Decoder_4to16 IS
-    PORT (
-        input_i : IN STD_LOGIC_VECTOR(3 DOWNTO 0);
-        output_o : OUT STD_LOGIC_VECTOR(15 DOWNTO 0)
+entity Decoder_4to16 is
+    port (
+        input_i : in std_logic_vector(3 downto 0);
+        output_o : out std_logic_vector(15 downto 0)
     );
-END ENTITY Decoder_4to16;
+end entity Decoder_4to16;
 
-ARCHITECTURE RTL OF Decoder_4to16 IS
-BEGIN
+architecture RTL of Decoder_4to16 is
+begin
 
-    P_COMBINATIONAL : PROCESS (input_i)
-    BEGIN
-
-        CASE (input_i) IS
-            WHEN x"0" =>
+    P_COMBINATIONAL : process (input_i)
+    begin
+        case (input_i) is
+            when x"0" =>
                 output_o <= x"0001";
-            WHEN x"1" =>
+            when x"1" =>
                 output_o <= x"0002";
-            WHEN x"2" =>
+            when x"2" =>
                 output_o <= x"0004";
-            WHEN x"3" =>
+            when x"3" =>
                 output_o <= x"0008";
-            WHEN x"4" =>
+            when x"4" =>
                 output_o <= x"0010";
-            WHEN x"5" =>
+            when x"5" =>
                 output_o <= x"0020";
-            WHEN x"6" =>
+            when x"6" =>
                 output_o <= x"0040";
-            WHEN x"7" =>
+            when x"7" =>
                 output_o <= x"0080";
-            WHEN x"8" =>
+            when x"8" =>
                 output_o <= x"0100";
-            WHEN x"9" =>
+            when x"9" =>
                 output_o <= x"0200";
-            WHEN x"A" =>
+            when x"A" =>
                 output_o <= x"0400";
-            WHEN x"B" =>
+            when x"B" =>
                 output_o <= x"0800";
-            WHEN x"C" =>
+            when x"C" =>
                 output_o <= x"1000";
-            WHEN x"D" =>
+            when x"D" =>
                 output_o <= x"2000";
-            WHEN x"E" =>
+            when x"E" =>
                 output_o <= x"4000";
-            WHEN x"F" =>
+            when x"F" =>
                 output_o <= x"8000";
-            WHEN OTHERS =>
+            when others =>
                 output_o <= x"0000";
-        END CASE;
+        end case;
+    end process;
 
-    END PROCESS;
-
-END ARCHITECTURE RTL;
+end architecture RTL;
