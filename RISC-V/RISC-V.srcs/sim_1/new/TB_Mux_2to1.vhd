@@ -13,16 +13,15 @@
 -- Additional Comments:
 -- 
 ----------------------------------------------------------------------------------
-LIBRARY IEEE;
-USE IEEE.STD_LOGIC_1164.ALL;
-USE IEEE.NUMERIC_STD.ALL;
+library IEEE;
+use IEEE.STD_LOGIC_1164.all;
+use IEEE.NUMERIC_STD.all;
 
-ENTITY TB_Mux_2to1 IS
+entity TB_Mux_2to1 is
     --  Port ( );
-END TB_Mux_2to1;
+end entity TB_Mux_2to1;
 
-ARCHITECTURE Behavioral OF TB_Mux_2to1 IS
-
+architecture RTL of TB_Mux_2to1 is
     --component Mux_2to1 is
     --    generic 
     --    (
@@ -36,21 +35,19 @@ ARCHITECTURE Behavioral OF TB_Mux_2to1 IS
     --        output0_o : out std_logic_vector(W-1 downto 0)
     --    );
     --end component;
+    constant tb_W : integer range 1 to 64 := 8;
+    signal tb_sel_i : std_logic;
+    signal tb_input0_i : std_logic_vector(tb_W - 1 downto 0);
+    signal tb_input1_i : std_logic_vector(tb_W - 1 downto 0);
+    signal tb_output0_o : std_logic_vector(tb_W - 1 downto 0);
+begin
 
-    CONSTANT tb_W : INTEGER RANGE 1 TO 64 := 8;
-    SIGNAL tb_sel_i : STD_LOGIC;
-    SIGNAL tb_input0_i : STD_LOGIC_VECTOR(tb_W - 1 DOWNTO 0);
-    SIGNAL tb_input1_i : STD_LOGIC_VECTOR(tb_W - 1 DOWNTO 0);
-    SIGNAL tb_output0_o : STD_LOGIC_VECTOR(tb_W - 1 DOWNTO 0);
-
-BEGIN
-
-    DUT_MUX2X1 : ENTITY work.Mux_2to1(Rtl) -- Architecture name of imported component
-        GENERIC MAP
+    DUT_MUX2X1 : entity work.Mux_2to1(Rtl) -- Architecture name of imported component
+        generic map
         (
             W => tb_W
         )
-        PORT MAP
+        port map
         (
             sel_i => tb_sel_i,
             input0_i => tb_input0_i,
@@ -58,34 +55,32 @@ BEGIN
             output0_o => tb_output0_o
         );
 
-    P_COMB : PROCESS
-    BEGIN
-
+    P_COMB : process
+    begin
         tb_sel_i <= '0';
-        tb_input0_i <= (OTHERS => '0');
-        tb_input1_i <= (OTHERS => '0');
-        WAIT FOR 10 ns;
+        tb_input0_i <= (others => '0');
+        tb_input1_i <= (others => '0');
+        wait for 10 ns;
 
         tb_input0_i <= x"A5";
         tb_input1_i <= x"B6";
-        WAIT FOR 1 ns;
-        ASSERT (tb_output0_o = x"A5") REPORT "TEST : 0" SEVERITY warning;
+        wait for 1 ns;
+        assert (tb_output0_o = x"A5") report "TEST : 0" severity warning;
 
         tb_sel_i <= '1';
-        WAIT FOR 1ns;
-        ASSERT (tb_output0_o = x"B6") REPORT "TEST : 1" SEVERITY warning;
+        wait for 1ns;
+        assert (tb_output0_o = x"B6") report "TEST : 1" severity warning;
 
         tb_input1_i <= x"77";
-        WAIT FOR 1ns;
-        ASSERT (tb_output0_o = x"77") REPORT "TEST : 2" SEVERITY warning;
+        wait for 1ns;
+        assert (tb_output0_o = x"77") report "TEST : 2" severity warning;
 
         tb_sel_i <= '0';
         tb_input0_i <= x"99";
-        WAIT FOR 1ns;
-        ASSERT (tb_output0_o = x"99") REPORT "TEST : 3" SEVERITY warning;
+        wait for 1ns;
+        assert (tb_output0_o = x"99") report "TEST : 3" severity warning;
 
-        ASSERT false REPORT "ALL TESTS PASSED" SEVERITY failure;
-
-    END PROCESS;
-
-END Behavioral;
+        assert false report "ALL TESTS PASSED" severity failure;
+    end process;
+    
+end architecture RTL;

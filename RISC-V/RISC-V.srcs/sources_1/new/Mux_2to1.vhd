@@ -13,8 +13,8 @@
 -- Additional Comments:
 -- 
 ----------------------------------------------------------------------------------
-LIBRARY IEEE;
-USE IEEE.STD_LOGIC_1164.ALL;
+library IEEE;
+use IEEE.STD_LOGIC_1164.all;
 
 -- Uncomment the following library declaration if using
 -- arithmetic functions with Signed or Unsigned values
@@ -25,33 +25,31 @@ USE IEEE.STD_LOGIC_1164.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-ENTITY Mux_2to1 IS
-	GENERIC (
-		W : INTEGER RANGE 1 TO 64 := 8
+entity Mux_2to1 is
+	generic (
+		W : integer range 1 to 64 := 32
 	);
-	PORT (
-		sel_i : IN STD_LOGIC;
-		input0_i : IN STD_LOGIC_VECTOR(W - 1 DOWNTO 0);
-		input1_i : IN STD_LOGIC_VECTOR(W - 1 DOWNTO 0);
-		output0_o : OUT STD_LOGIC_VECTOR(W - 1 DOWNTO 0)
+	port (
+		sel_i : in std_logic;
+		input0_i : in std_logic_vector(W - 1 downto 0);
+		input1_i : in std_logic_vector(W - 1 downto 0);
+		output0_o : out std_logic_vector(W - 1 downto 0)
 	);
-END ENTITY;
+end entity;
 
-ARCHITECTURE Rtl OF Mux_2to1 IS
-BEGIN
+architecture Rtl of Mux_2to1 is
+begin
 
-	P_COMBINATIONAL : PROCESS (sel_i, input0_i, input1_i)
-	BEGIN
-
-		CASE (sel_i) IS
-			WHEN '0' =>
+	P_COMBINATIONAL : process (sel_i, input0_i, input1_i)
+	begin
+		case (sel_i) is
+			when '0' =>
 				output0_o <= input0_i;
-			WHEN '1' =>
+			when '1' =>
 				output0_o <= input1_i;
-			WHEN OTHERS =>
-				output0_o <= (OTHERS => '0');
-		END CASE;
+			when others =>
+				output0_o <= (others => '0');
+		end case;
+	end process;
 
-	END PROCESS;
-
-END ARCHITECTURE;
+end architecture;
