@@ -10,15 +10,15 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="4.692 ns"></ZoomStartTime>
-      <ZoomEndTime time="127.193 ns"></ZoomEndTime>
-      <Cursor1Time time="72.992 ns"></Cursor1Time>
+      <ZoomStartTime time="0.000 ns"></ZoomStartTime>
+      <ZoomEndTime time="91.001 ns"></ZoomEndTime>
+      <Cursor1Time time="91.000 ns"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="248"></NameColumnWidth>
-      <ValueColumnWidth column_width="128"></ValueColumnWidth>
+      <ValueColumnWidth column_width="124"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="4" />
+   <WVObjectSize size="6" />
    <wvobject fp_name="/TB_Register_Simple/tb_clk" type="logic">
       <obj_property name="ElementShortName">tb_clk</obj_property>
       <obj_property name="ObjectShortName">tb_clk</obj_property>
@@ -27,12 +27,20 @@
       <obj_property name="ElementShortName">tb_reset_i</obj_property>
       <obj_property name="ObjectShortName">tb_reset_i</obj_property>
    </wvobject>
+   <wvobject fp_name="/TB_Register_Simple/tb_data_i" type="array">
+      <obj_property name="ElementShortName">tb_data_i[31:0]</obj_property>
+      <obj_property name="ObjectShortName">tb_data_i[31:0]</obj_property>
+   </wvobject>
    <wvobject fp_name="/TB_Register_Simple/tb_data_o" type="array">
       <obj_property name="ElementShortName">tb_data_o[31:0]</obj_property>
       <obj_property name="ObjectShortName">tb_data_o[31:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/TB_Register_Simple/tb_data_i" type="array">
-      <obj_property name="ElementShortName">tb_data_i[31:0]</obj_property>
-      <obj_property name="ObjectShortName">tb_data_i[31:0]</obj_property>
+   <wvobject fp_name="/TB_Register_Simple/clk_period" type="other">
+      <obj_property name="ElementShortName">clk_period</obj_property>
+      <obj_property name="ObjectShortName">clk_period</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB_Register_Simple/tb_W" type="other">
+      <obj_property name="ElementShortName">tb_W</obj_property>
+      <obj_property name="ObjectShortName">tb_W</obj_property>
    </wvobject>
 </wave_config>
