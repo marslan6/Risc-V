@@ -13,43 +13,41 @@
 -- Additional Comments:
 -- 
 ----------------------------------------------------------------------------------
-LIBRARY IEEE;
-USE IEEE.STD_LOGIC_1164.ALL;
-USE IEEE.NUMERIC_STD.ALL;
+library IEEE;
+use IEEE.STD_LOGIC_1164.all;
+use IEEE.NUMERIC_STD.all;
 
-ENTITY TB_Mux_16to1 IS
+entity TB_Mux_16to1 is
     --  Port ( );
-END ENTITY TB_Mux_16to1;
+end entity TB_Mux_16to1;
 
-ARCHITECTURE RTL OF TB_Mux_16to1 IS
+architecture RTL of TB_Mux_16to1 is
+    constant tb_W : integer range 1 to 64 := 8;
+    signal tb_select_i : std_logic_vector(3 downto 0); -- 16 Inputs / 4 Bits is enough
+    signal tb_input0_i : std_logic_vector(tb_W - 1 downto 0);
+    signal tb_input1_i : std_logic_vector(tb_W - 1 downto 0);
+    signal tb_input2_i : std_logic_vector(tb_W - 1 downto 0);
+    signal tb_input3_i : std_logic_vector(tb_W - 1 downto 0);
+    signal tb_input4_i : std_logic_vector(tb_W - 1 downto 0);
+    signal tb_input5_i : std_logic_vector(tb_W - 1 downto 0);
+    signal tb_input6_i : std_logic_vector(tb_W - 1 downto 0);
+    signal tb_input7_i : std_logic_vector(tb_W - 1 downto 0);
+    signal tb_input8_i : std_logic_vector(tb_W - 1 downto 0);
+    signal tb_input9_i : std_logic_vector(tb_W - 1 downto 0);
+    signal tb_input10_i : std_logic_vector(tb_W - 1 downto 0);
+    signal tb_input11_i : std_logic_vector(tb_W - 1 downto 0);
+    signal tb_input12_i : std_logic_vector(tb_W - 1 downto 0);
+    signal tb_input13_i : std_logic_vector(tb_W - 1 downto 0);
+    signal tb_input14_i : std_logic_vector(tb_W - 1 downto 0);
+    signal tb_input15_i : std_logic_vector(tb_W - 1 downto 0);
+    signal tb_output_o : std_logic_vector(tb_W - 1 downto 0);
+begin
 
-    CONSTANT tb_W : INTEGER RANGE 1 TO 64 := 8;
-    SIGNAL tb_select_i : STD_LOGIC_VECTOR(3 DOWNTO 0); -- 16 Inputs / 4 Bits is enough
-    SIGNAL tb_input0_i : STD_LOGIC_VECTOR(tb_W - 1 DOWNTO 0);
-    SIGNAL tb_input1_i : STD_LOGIC_VECTOR(tb_W - 1 DOWNTO 0);
-    SIGNAL tb_input2_i : STD_LOGIC_VECTOR(tb_W - 1 DOWNTO 0);
-    SIGNAL tb_input3_i : STD_LOGIC_VECTOR(tb_W - 1 DOWNTO 0);
-    SIGNAL tb_input4_i : STD_LOGIC_VECTOR(tb_W - 1 DOWNTO 0);
-    SIGNAL tb_input5_i : STD_LOGIC_VECTOR(tb_W - 1 DOWNTO 0);
-    SIGNAL tb_input6_i : STD_LOGIC_VECTOR(tb_W - 1 DOWNTO 0);
-    SIGNAL tb_input7_i : STD_LOGIC_VECTOR(tb_W - 1 DOWNTO 0);
-    SIGNAL tb_input8_i : STD_LOGIC_VECTOR(tb_W - 1 DOWNTO 0);
-    SIGNAL tb_input9_i : STD_LOGIC_VECTOR(tb_W - 1 DOWNTO 0);
-    SIGNAL tb_input10_i : STD_LOGIC_VECTOR(tb_W - 1 DOWNTO 0);
-    SIGNAL tb_input11_i : STD_LOGIC_VECTOR(tb_W - 1 DOWNTO 0);
-    SIGNAL tb_input12_i : STD_LOGIC_VECTOR(tb_W - 1 DOWNTO 0);
-    SIGNAL tb_input13_i : STD_LOGIC_VECTOR(tb_W - 1 DOWNTO 0);
-    SIGNAL tb_input14_i : STD_LOGIC_VECTOR(tb_W - 1 DOWNTO 0);
-    SIGNAL tb_input15_i : STD_LOGIC_VECTOR(tb_W - 1 DOWNTO 0);
-    SIGNAL tb_output_o : STD_LOGIC_VECTOR(tb_W - 1 DOWNTO 0);
-
-BEGIN
-
-    DUT_MUX16X1 : ENTITY WORK.Mux_16to1(RTL)
-        GENERIC MAP(
+    DUT_MUX16X1 : entity WORK.Mux_16to1(RTL)
+        generic map(
             W => tb_W
         )
-        PORT MAP(
+        port map(
             select_i => tb_select_i,
             input0_i => tb_input0_i,
             input1_i => tb_input1_i,
@@ -70,8 +68,8 @@ BEGIN
             output_o => tb_output_o
         );
 
-    P_COMBINATIONAL : PROCESS
-    BEGIN
+    P_COMBINATIONAL : process
+    begin
         tb_select_i <= x"0";
         tb_input0_i <= x"00";
         tb_input1_i <= x"00";
@@ -89,8 +87,8 @@ BEGIN
         tb_input13_i <= x"00";
         tb_input14_i <= x"00";
         tb_input15_i <= x"00";
-        WAIT FOR 10 ns;
-        ASSERT (tb_output_o = x"00") REPORT "TEST : 0 [FAILED]" SEVERITY warning;
+        wait for 10 ns;
+        assert (tb_output_o = x"00") report "TEST : 0 [FAILED]" severity warning;
 
         ------------------------------------------------------------------
         ------------------------------------------------------------------
@@ -111,169 +109,167 @@ BEGIN
         tb_input13_i <= x"EE";
         tb_input14_i <= x"FF";
         tb_input15_i <= x"9A";
-        WAIT FOR 2 ns;
-        ASSERT (tb_output_o = x"11") REPORT "TEST : 0 [FAILED]" SEVERITY warning;
+        wait for 2 ns;
+        assert (tb_output_o = x"11") report "TEST : 0 [FAILED]" severity warning;
 
         tb_input0_i <= x"98";
-        WAIT FOR 2 ns;
-        ASSERT (tb_output_o = x"98") REPORT "TEST : 1 [FAILED]" SEVERITY warning;
+        wait for 2 ns;
+        assert (tb_output_o = x"98") report "TEST : 1 [FAILED]" severity warning;
         ------------------------------------------------------------------
         ------------------------------------------------------------------
         ------------------------------------------------------------------
         tb_select_i <= x"1";
-        WAIT FOR 2 ns;
-        ASSERT (tb_output_o = x"22") REPORT "TEST : 2 [FAILED]" SEVERITY warning;
+        wait for 2 ns;
+        assert (tb_output_o = x"22") report "TEST : 2 [FAILED]" severity warning;
 
         tb_input1_i <= x"87";
-        WAIT FOR 2 ns;
-        ASSERT (tb_output_o = x"87") REPORT "TEST : 3 [FAILED]" SEVERITY warning;
+        wait for 2 ns;
+        assert (tb_output_o = x"87") report "TEST : 3 [FAILED]" severity warning;
         ------------------------------------------------------------------
         ------------------------------------------------------------------
         ------------------------------------------------------------------
         tb_select_i <= x"2";
-        WAIT FOR 2 ns;
-        ASSERT (tb_output_o = x"33") REPORT "TEST : 4 [FAILED]" SEVERITY warning;
+        wait for 2 ns;
+        assert (tb_output_o = x"33") report "TEST : 4 [FAILED]" severity warning;
 
         tb_input2_i <= x"76";
-        WAIT FOR 2 ns;
-        ASSERT (tb_output_o = x"76") REPORT "TEST : 5 [FAILED]" SEVERITY warning;
+        wait for 2 ns;
+        assert (tb_output_o = x"76") report "TEST : 5 [FAILED]" severity warning;
         ------------------------------------------------------------------
         ------------------------------------------------------------------
         ------------------------------------------------------------------
         tb_select_i <= x"3";
-        WAIT FOR 2 ns;
-        ASSERT (tb_output_o = x"44") REPORT "TEST : 6 [FAILED]" SEVERITY warning;
+        wait for 2 ns;
+        assert (tb_output_o = x"44") report "TEST : 6 [FAILED]" severity warning;
 
         tb_input3_i <= x"65";
-        WAIT FOR 2 ns;
-        ASSERT (tb_output_o = x"65") REPORT "TEST : 7 [FAILED]" SEVERITY warning;
+        wait for 2 ns;
+        assert (tb_output_o = x"65") report "TEST : 7 [FAILED]" severity warning;
         ------------------------------------------------------------------
         ------------------------------------------------------------------
         ------------------------------------------------------------------
         tb_select_i <= x"4";
-        WAIT FOR 2 ns;
-        ASSERT (tb_output_o = x"55") REPORT "TEST : 8 [FAILED]" SEVERITY warning;
+        wait for 2 ns;
+        assert (tb_output_o = x"55") report "TEST : 8 [FAILED]" severity warning;
 
         tb_input4_i <= x"54";
-        WAIT FOR 2 ns;
-        ASSERT (tb_output_o = x"54") REPORT "TEST : 9 [FAILED]" SEVERITY warning;
+        wait for 2 ns;
+        assert (tb_output_o = x"54") report "TEST : 9 [FAILED]" severity warning;
         ------------------------------------------------------------------
         ------------------------------------------------------------------
         ------------------------------------------------------------------
         tb_select_i <= x"5";
-        WAIT FOR 2 ns;
-        ASSERT (tb_output_o = x"66") REPORT "TEST : 10 [FAILED]" SEVERITY warning;
+        wait for 2 ns;
+        assert (tb_output_o = x"66") report "TEST : 10 [FAILED]" severity warning;
 
         tb_input5_i <= x"43";
-        WAIT FOR 2 ns;
-        ASSERT (tb_output_o = x"43") REPORT "TEST : 11 [FAILED]" SEVERITY warning;
+        wait for 2 ns;
+        assert (tb_output_o = x"43") report "TEST : 11 [FAILED]" severity warning;
         ------------------------------------------------------------------
         ------------------------------------------------------------------
         ------------------------------------------------------------------
         tb_select_i <= x"6";
-        WAIT FOR 2 ns;
-        ASSERT (tb_output_o = x"77") REPORT "TEST : 12 [FAILED]" SEVERITY warning;
+        wait for 2 ns;
+        assert (tb_output_o = x"77") report "TEST : 12 [FAILED]" severity warning;
 
         tb_input6_i <= x"32";
-        WAIT FOR 2 ns;
-        ASSERT (tb_output_o = x"32") REPORT "TEST : 13 [FAILED]" SEVERITY warning;
+        wait for 2 ns;
+        assert (tb_output_o = x"32") report "TEST : 13 [FAILED]" severity warning;
         ------------------------------------------------------------------
         ------------------------------------------------------------------
         ------------------------------------------------------------------
         tb_select_i <= x"7";
-        WAIT FOR 2 ns;
-        ASSERT (tb_output_o = x"88") REPORT "TEST : 14 [FAILED]" SEVERITY warning;
+        wait for 2 ns;
+        assert (tb_output_o = x"88") report "TEST : 14 [FAILED]" severity warning;
 
         tb_input7_i <= x"21";
-        WAIT FOR 2 ns;
-        ASSERT (tb_output_o = x"21") REPORT "TEST : 15 [FAILED]" SEVERITY warning;
+        wait for 2 ns;
+        assert (tb_output_o = x"21") report "TEST : 15 [FAILED]" severity warning;
         ------------------------------------------------------------------
         ------------------------------------------------------------------
         ------------------------------------------------------------------
         tb_select_i <= x"8";
-        WAIT FOR 2 ns;
-        ASSERT (tb_output_o = x"99") REPORT "TEST : 16 [FAILED]" SEVERITY warning;
+        wait for 2 ns;
+        assert (tb_output_o = x"99") report "TEST : 16 [FAILED]" severity warning;
 
         tb_input8_i <= x"12";
-        WAIT FOR 2 ns;
-        ASSERT (tb_output_o = x"12") REPORT "TEST : 17 [FAILED]" SEVERITY warning;
+        wait for 2 ns;
+        assert (tb_output_o = x"12") report "TEST : 17 [FAILED]" severity warning;
         ------------------------------------------------------------------
         ------------------------------------------------------------------
         ------------------------------------------------------------------
         tb_select_i <= x"9";
-        WAIT FOR 2 ns;
-        ASSERT (tb_output_o = x"AA") REPORT "TEST : 18 [FAILED]" SEVERITY warning;
+        wait for 2 ns;
+        assert (tb_output_o = x"AA") report "TEST : 18 [FAILED]" severity warning;
 
         tb_input9_i <= x"23";
-        WAIT FOR 2 ns;
-        ASSERT (tb_output_o = x"23") REPORT "TEST : 19 [FAILED]" SEVERITY warning;
+        wait for 2 ns;
+        assert (tb_output_o = x"23") report "TEST : 19 [FAILED]" severity warning;
         ------------------------------------------------------------------
         ------------------------------------------------------------------
         ------------------------------------------------------------------
         tb_select_i <= x"A";
-        WAIT FOR 2 ns;
-        ASSERT (tb_output_o = x"BB") REPORT "TEST : 20 [FAILED]" SEVERITY warning;
+        wait for 2 ns;
+        assert (tb_output_o = x"BB") report "TEST : 20 [FAILED]" severity warning;
 
         tb_input10_i <= x"34";
-        WAIT FOR 2 ns;
-        ASSERT (tb_output_o = x"34") REPORT "TEST : 21 [FAILED]" SEVERITY warning;
+        wait for 2 ns;
+        assert (tb_output_o = x"34") report "TEST : 21 [FAILED]" severity warning;
         ------------------------------------------------------------------
         ------------------------------------------------------------------
         ------------------------------------------------------------------
         tb_select_i <= x"B";
-        WAIT FOR 2 ns;
-        ASSERT (tb_output_o = x"CC") REPORT "TEST : 22 [FAILED]" SEVERITY warning;
+        wait for 2 ns;
+        assert (tb_output_o = x"CC") report "TEST : 22 [FAILED]" severity warning;
 
         tb_input11_i <= x"45";
-        WAIT FOR 2 ns;
-        ASSERT (tb_output_o = x"45") REPORT "TEST : 23 [FAILED]" SEVERITY warning;
+        wait for 2 ns;
+        assert (tb_output_o = x"45") report "TEST : 23 [FAILED]" severity warning;
         ------------------------------------------------------------------
         ------------------------------------------------------------------
         ------------------------------------------------------------------
         tb_select_i <= x"C";
-        WAIT FOR 2 ns;
-        ASSERT (tb_output_o = x"DD") REPORT "TEST : 24 [FAILED]" SEVERITY warning;
+        wait for 2 ns;
+        assert (tb_output_o = x"DD") report "TEST : 24 [FAILED]" severity warning;
 
         tb_input12_i <= x"56";
-        WAIT FOR 2 ns;
-        ASSERT (tb_output_o = x"56") REPORT "TEST : 25 [FAILED]" SEVERITY warning;
+        wait for 2 ns;
+        assert (tb_output_o = x"56") report "TEST : 25 [FAILED]" severity warning;
         ------------------------------------------------------------------
         ------------------------------------------------------------------
         ------------------------------------------------------------------
         tb_select_i <= x"D";
-        WAIT FOR 2 ns;
-        ASSERT (tb_output_o = x"EE") REPORT "TEST : 26 [FAILED]" SEVERITY warning;
+        wait for 2 ns;
+        assert (tb_output_o = x"EE") report "TEST : 26 [FAILED]" severity warning;
 
         tb_input13_i <= x"67";
-        WAIT FOR 2 ns;
-        ASSERT (tb_output_o = x"67") REPORT "TEST : 27 [FAILED]" SEVERITY warning;
+        wait for 2 ns;
+        assert (tb_output_o = x"67") report "TEST : 27 [FAILED]" severity warning;
         ------------------------------------------------------------------
         ------------------------------------------------------------------
         ------------------------------------------------------------------
         tb_select_i <= x"E";
-        WAIT FOR 2 ns;
-        ASSERT (tb_output_o = x"FF") REPORT "TEST : 28 [FAILED]" SEVERITY warning;
+        wait for 2 ns;
+        assert (tb_output_o = x"FF") report "TEST : 28 [FAILED]" severity warning;
 
         tb_input14_i <= x"78";
-        WAIT FOR 2 ns;
-        ASSERT (tb_output_o = x"78") REPORT "TEST : 29 [FAILED]" SEVERITY warning;
+        wait for 2 ns;
+        assert (tb_output_o = x"78") report "TEST : 29 [FAILED]" severity warning;
         ------------------------------------------------------------------
         ------------------------------------------------------------------
         ------------------------------------------------------------------
         tb_select_i <= x"F";
-        WAIT FOR 2 ns;
-        ASSERT (tb_output_o = x"9A") REPORT "TEST : 30 [FAILED]" SEVERITY warning;
+        wait for 2 ns;
+        assert (tb_output_o = x"9A") report "TEST : 30 [FAILED]" severity warning;
 
         tb_input15_i <= x"89";
-        WAIT FOR 2 ns;
-        ASSERT (tb_output_o = x"89") REPORT "TEST : 31 [FAILED]" SEVERITY warning;
+        wait for 2 ns;
+        assert (tb_output_o = x"89") report "TEST : 31 [FAILED]" severity warning;
 
         ------------------------------------------------------------------
         ------------------------------------------------------------------
         ------------------------------------------------------------------
+        assert (false) report "ALL TESTS PASSED" severity failure;
+    end process;
 
-        ASSERT (false) REPORT "ALL TESTS PASSED" SEVERITY failure;
-
-    END PROCESS;
-
-END ARCHITECTURE RTL;
+end architecture RTL;

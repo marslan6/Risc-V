@@ -13,8 +13,8 @@
 -- Additional Comments:
 -- 
 ----------------------------------------------------------------------------------
-LIBRARY IEEE;
-USE IEEE.STD_LOGIC_1164.ALL;
+library IEEE;
+use IEEE.STD_LOGIC_1164.all;
 
 -- Uncomment the following library declaration if using
 -- arithmetic functions with Signed or Unsigned values
@@ -25,79 +25,76 @@ USE IEEE.STD_LOGIC_1164.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-ENTITY Mux_16to1 IS
-    GENERIC (
-        W : INTEGER RANGE 1 TO 64 := 8
+entity Mux_16to1 is
+    generic (
+        W : integer range 1 to 64 := 32
     );
-    PORT (
-        select_i : IN STD_LOGIC_VECTOR(3 DOWNTO 0); -- 16 Inputs / 4 Bits is enough
-        input0_i : IN STD_LOGIC_VECTOR(W - 1 DOWNTO 0);
-        input1_i : IN STD_LOGIC_VECTOR(W - 1 DOWNTO 0);
-        input2_i : IN STD_LOGIC_VECTOR(W - 1 DOWNTO 0);
-        input3_i : IN STD_LOGIC_VECTOR(W - 1 DOWNTO 0);
-        input4_i : IN STD_LOGIC_VECTOR(W - 1 DOWNTO 0);
-        input5_i : IN STD_LOGIC_VECTOR(W - 1 DOWNTO 0);
-        input6_i : IN STD_LOGIC_VECTOR(W - 1 DOWNTO 0);
-        input7_i : IN STD_LOGIC_VECTOR(W - 1 DOWNTO 0);
-        input8_i : IN STD_LOGIC_VECTOR(W - 1 DOWNTO 0);
-        input9_i : IN STD_LOGIC_VECTOR(W - 1 DOWNTO 0);
-        input10_i : IN STD_LOGIC_VECTOR(W - 1 DOWNTO 0);
-        input11_i : IN STD_LOGIC_VECTOR(W - 1 DOWNTO 0);
-        input12_i : IN STD_LOGIC_VECTOR(W - 1 DOWNTO 0);
-        input13_i : IN STD_LOGIC_VECTOR(W - 1 DOWNTO 0);
-        input14_i : IN STD_LOGIC_VECTOR(W - 1 DOWNTO 0);
-        input15_i : IN STD_LOGIC_VECTOR(W - 1 DOWNTO 0);
-        output_o : OUT STD_LOGIC_VECTOR(W - 1 DOWNTO 0)
+    port (
+        select_i : in std_logic_vector(3 downto 0); -- 16 Inputs / 4 Bits is enough
+        input0_i : in std_logic_vector(W - 1 downto 0);
+        input1_i : in std_logic_vector(W - 1 downto 0);
+        input2_i : in std_logic_vector(W - 1 downto 0);
+        input3_i : in std_logic_vector(W - 1 downto 0);
+        input4_i : in std_logic_vector(W - 1 downto 0);
+        input5_i : in std_logic_vector(W - 1 downto 0);
+        input6_i : in std_logic_vector(W - 1 downto 0);
+        input7_i : in std_logic_vector(W - 1 downto 0);
+        input8_i : in std_logic_vector(W - 1 downto 0);
+        input9_i : in std_logic_vector(W - 1 downto 0);
+        input10_i : in std_logic_vector(W - 1 downto 0);
+        input11_i : in std_logic_vector(W - 1 downto 0);
+        input12_i : in std_logic_vector(W - 1 downto 0);
+        input13_i : in std_logic_vector(W - 1 downto 0);
+        input14_i : in std_logic_vector(W - 1 downto 0);
+        input15_i : in std_logic_vector(W - 1 downto 0);
+        output_o : out std_logic_vector(W - 1 downto 0)
     );
 
-END ENTITY Mux_16to1;
+end entity Mux_16to1;
 
-ARCHITECTURE RTL OF Mux_16to1 IS
-BEGIN
+architecture RTL of Mux_16to1 is
+begin
 
-    P_COMBINATIONAL : PROCESS (select_i, input0_i, input1_i, input2_i, input3_i,
+    P_COMBINATIONAL : process (select_i, input0_i, input1_i, input2_i, input3_i,
         input4_i, input5_i, input6_i, input7_i, input8_i, input9_i, input10_i,
         input11_i, input12_i, input13_i, input14_i, input15_i)
-    BEGIN
-
-        CASE (select_i) IS
-
-            WHEN x"0" =>
+    begin
+        case (select_i) is
+            when x"0" =>
                 output_o <= input0_i;
-            WHEN x"1" =>
+            when x"1" =>
                 output_o <= input1_i;
-            WHEN x"2" =>
+            when x"2" =>
                 output_o <= input2_i;
-            WHEN x"3" =>
+            when x"3" =>
                 output_o <= input3_i;
-            WHEN x"4" =>
+            when x"4" =>
                 output_o <= input4_i;
-            WHEN x"5" =>
+            when x"5" =>
                 output_o <= input5_i;
-            WHEN x"6" =>
+            when x"6" =>
                 output_o <= input6_i;
-            WHEN x"7" =>
+            when x"7" =>
                 output_o <= input7_i;
-            WHEN x"8" =>
+            when x"8" =>
                 output_o <= input8_i;
-            WHEN x"9" =>
+            when x"9" =>
                 output_o <= input9_i;
-            WHEN x"A" =>
+            when x"A" =>
                 output_o <= input10_i;
-            WHEN x"B" =>
+            when x"B" =>
                 output_o <= input11_i;
-            WHEN x"C" =>
+            when x"C" =>
                 output_o <= input12_i;
-            WHEN x"D" =>
+            when x"D" =>
                 output_o <= input13_i;
-            WHEN x"E" =>
+            when x"E" =>
                 output_o <= input14_i;
-            WHEN x"F" =>
+            when x"F" =>
                 output_o <= input15_i;
-            WHEN OTHERS =>
+            when others =>
                 output_o <= (others => '0');
-        END CASE;
+        end case;
+    end process;
 
-    END PROCESS;
-
-END ARCHITECTURE RTL;
+end architecture RTL;
