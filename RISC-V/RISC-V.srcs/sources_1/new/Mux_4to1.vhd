@@ -14,8 +14,8 @@
 -- 
 ----------------------------------------------------------------------------------
 
-LIBRARY IEEE;
-USE IEEE.STD_LOGIC_1164.ALL;
+library IEEE;
+use IEEE.STD_LOGIC_1164.all;
 
 -- Uncomment the following library declaration if using
 -- arithmetic functions with Signed or Unsigned values
@@ -26,39 +26,37 @@ USE IEEE.STD_LOGIC_1164.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-ENTITY Mux_4to1 IS
-    GENERIC (
-        W : INTEGER RANGE 1 TO 64 := 8
+entity Mux_4to1 is
+    generic (
+        W : integer range 1 to 64 := 32
     );
-    PORT (
-        select_i : IN STD_LOGIC_VECTOR(1 DOWNTO 0);
-        input0_i : IN STD_LOGIC_VECTOR(W - 1 DOWNTO 0);
-        input1_i : IN STD_LOGIC_VECTOR(W - 1 DOWNTO 0);
-        input2_i : IN STD_LOGIC_VECTOR(W - 1 DOWNTO 0);
-        input3_i : IN STD_LOGIC_VECTOR(W - 1 DOWNTO 0);
-        output_o : OUT STD_LOGIC_VECTOR(W - 1 DOWNTO 0)
+    port (
+        select_i : in std_logic_vector(1 downto 0);
+        input0_i : in std_logic_vector(W - 1 downto 0);
+        input1_i : in std_logic_vector(W - 1 downto 0);
+        input2_i : in std_logic_vector(W - 1 downto 0);
+        input3_i : in std_logic_vector(W - 1 downto 0);
+        output_o : out std_logic_vector(W - 1 downto 0)
     );
-END ENTITY Mux_4to1;
+end entity Mux_4to1;
 
-ARCHITECTURE RTL OF Mux_4to1 IS
-BEGIN
+architecture RTL of Mux_4to1 is
+begin
 
-    P_COMBINATIONAL : PROCESS (select_i, input0_i, input1_i, input2_i, input3_i)
-    BEGIN
-
-        CASE (select_i) IS
-            WHEN "00" =>
+    P_COMBINATIONAL : process (select_i, input0_i, input1_i, input2_i, input3_i)
+    begin
+        case (select_i) is
+            when "00" =>
                 output_o <= input0_i;
-            WHEN "01" =>
+            when "01" =>
                 output_o <= input1_i;
-            WHEN "10" =>
+            when "10" =>
                 output_o <= input2_i;
-            WHEN "11" =>
+            when "11" =>
                 output_o <= input3_i;
-            WHEN OTHERS =>
-                output_o <= (OTHERS => '0');
-        END CASE;
+            when others =>
+                output_o <= (others => '0');
+        end case;
+    end process;
 
-    END PROCESS;
-
-END ARCHITECTURE RTL;
+end architecture RTL;

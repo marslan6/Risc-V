@@ -13,49 +13,46 @@
 -- Additional Comments:
 -- 
 ----------------------------------------------------------------------------------
-LIBRARY IEEE;
-USE IEEE.STD_LOGIC_1164.ALL;
-USE IEEE.NUMERIC_STD.ALL;
+library IEEE;
+use IEEE.STD_LOGIC_1164.all;
+use IEEE.NUMERIC_STD.all;
 
-ENTITY TB_Mux_4to1 IS
+entity TB_Mux_4to1 is
     --  Port ( );
-END ENTITY TB_Mux_4to1;
+end entity TB_Mux_4to1;
 
-ARCHITECTURE RTL OF TB_Mux_4to1 IS
+architecture RTL of TB_Mux_4to1 is
+    constant tb_W : integer range 1 to 64 := 8;
+    signal tb_select_i : std_logic_vector(1 downto 0);
+    signal tb_input0_i : std_logic_vector(tb_W - 1 downto 0);
+    signal tb_input1_i : std_logic_vector(tb_W - 1 downto 0);
+    signal tb_input2_i : std_logic_vector(tb_W - 1 downto 0);
+    signal tb_input3_i : std_logic_vector(tb_W - 1 downto 0);
+    signal tb_output_o : std_logic_vector(tb_W - 1 downto 0);
+begin
 
-    CONSTANT tb_W : INTEGER RANGE 1 TO 64 := 8;
-    SIGNAL tb_select_i : STD_LOGIC_VECTOR(1 DOWNTO 0);
-    SIGNAL tb_input0_i : STD_LOGIC_VECTOR(tb_W - 1 DOWNTO 0);
-    SIGNAL tb_input1_i : STD_LOGIC_VECTOR(tb_W - 1 DOWNTO 0);
-    SIGNAL tb_input2_i : STD_LOGIC_VECTOR(tb_W - 1 DOWNTO 0);
-    SIGNAL tb_input3_i : STD_LOGIC_VECTOR(tb_W - 1 DOWNTO 0);
-    SIGNAL tb_output_o : STD_LOGIC_VECTOR(tb_W - 1 DOWNTO 0);
+    DUT_MUX4X1 : entity WORK.Mux_4to1(RTL)
+        generic map(
+            W => tb_W
+        )
+        port map(
+            select_i => tb_select_i,
+            input0_i => tb_input0_i,
+            input1_i => tb_input1_i,
+            input2_i => tb_input2_i,
+            input3_i => tb_input3_i,
+            output_o => tb_output_o
+        );
 
-BEGIN
-
-    DUT_MUX4X1 : ENTITY WORK.Mux_4to1(RTL)
-    GENERIC MAP(
-        W => tb_W
-    )
-    PORT MAP(
-        select_i => tb_select_i,
-        input0_i => tb_input0_i,
-        input1_i => tb_input1_i,
-        input2_i => tb_input2_i,
-        input3_i => tb_input3_i,
-        output_o => tb_output_o
-    );
-
-    P_COMBINATIONAL : PROCESS
-    BEGIN
-
+    P_COMBINATIONAL : process
+    begin
         tb_select_i <= "00";
         tb_input0_i <= x"00";
         tb_input1_i <= x"00";
         tb_input2_i <= x"00";
         tb_input3_i <= x"00";
-        WAIT FOR 10 ns;
-        ASSERT (tb_output_o = x"00") REPORT "TEST : 0 [FAILED]" SEVERITY warning;
+        wait for 10 ns;
+        assert (tb_output_o = x"00") report "TEST : 0 [FAILED]" severity warning;
 
         ------------------------------------------------------------------
         ------------------------------------------------------------------
@@ -64,47 +61,44 @@ BEGIN
         tb_input1_i <= x"BB";
         tb_input2_i <= x"CC";
         tb_input3_i <= x"DD";
-        WAIT FOR 10 ns;
-        ASSERT (tb_output_o = x"AA") REPORT "TEST : 1 [FAILED]" SEVERITY warning;
+        wait for 10 ns;
+        assert (tb_output_o = x"AA") report "TEST : 1 [FAILED]" severity warning;
 
         ------------------------------------------------------------------
         ------------------------------------------------------------------
         ------------------------------------------------------------------
         tb_select_i <= "01";
-        WAIT FOR 10 ns;
-        ASSERT (tb_output_o = x"BB") REPORT "TEST : 2 [FAILED]" SEVERITY warning;
+        wait for 10 ns;
+        assert (tb_output_o = x"BB") report "TEST : 2 [FAILED]" severity warning;
 
         tb_input1_i <= x"11";
-        WAIT FOR 10 ns;
-        ASSERT (tb_output_o = x"11") REPORT "TEST : 3 [FAILED]" SEVERITY warning;
+        wait for 10 ns;
+        assert (tb_output_o = x"11") report "TEST : 3 [FAILED]" severity warning;
         ------------------------------------------------------------------
         ------------------------------------------------------------------
         ------------------------------------------------------------------
         tb_select_i <= "10";
-        WAIT FOR 10 ns;
-        ASSERT (tb_output_o = x"CC") REPORT "TEST : 4 [FAILED]" SEVERITY warning;
+        wait for 10 ns;
+        assert (tb_output_o = x"CC") report "TEST : 4 [FAILED]" severity warning;
 
         tb_input2_i <= x"22";
-        WAIT FOR 10 ns;
-        ASSERT (tb_output_o = x"22") REPORT "TEST : 5 [FAILED]" SEVERITY warning;
+        wait for 10 ns;
+        assert (tb_output_o = x"22") report "TEST : 5 [FAILED]" severity warning;
         ------------------------------------------------------------------
         ------------------------------------------------------------------
         ------------------------------------------------------------------
-
         tb_select_i <= "11";
-        WAIT FOR 10 ns;
-        ASSERT (tb_output_o = x"DD") REPORT "TEST : 6 [FAILED]" SEVERITY warning;
+        wait for 10 ns;
+        assert (tb_output_o = x"DD") report "TEST : 6 [FAILED]" severity warning;
 
         tb_input3_i <= x"33";
-        WAIT FOR 10 ns;
-        ASSERT (tb_output_o = x"33") REPORT "TEST : 7 [FAILED]" SEVERITY warning;
+        wait for 10 ns;
+        assert (tb_output_o = x"33") report "TEST : 7 [FAILED]" severity warning;
 
         ------------------------------------------------------------------
         ------------------------------------------------------------------
         ------------------------------------------------------------------
+        assert (false) report "ALL TESTS PASSED" severity failure;
+    end process;
 
-        ASSERT (false) REPORT "ALL TESTS PASSED" SEVERITY failure;
-
-    END PROCESS;
-
-END ARCHITECTURE RTL;
+end architecture RTL;
