@@ -17,11 +17,6 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.all;
 use IEEE.NUMERIC_STD.all;
 
--- Uncomment the following library declaration if instantiating
--- any Xilinx leaf cells in this code.
---library UNISIM;
---use UNISIM.VComponents.all;
-
 entity TB_Decoder_4to16 is
     --  Port ( );
 end entity TB_Decoder_4to16;
