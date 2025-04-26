@@ -1,17 +1,5 @@
 ----------------------------------------------------------------------------------
 -- Engineer: Mehmet Arslan
--- 
--- Create Date: 20/04/2025 08:32:30 PM
--- Design Name: Test Bench for TB_Mux_16to1
--- Module Name: TB_Mux_16to1 - Behavioral
--- Project Name: Test Bench for TB_Mux_16to1
--- Target Devices: Xilinx FPGAs
--- 
--- 
--- Revision: 0.0.0.1
--- Revision 0.01 - File Created
--- Additional Comments:
--- 
 ----------------------------------------------------------------------------------
 library IEEE;
 use IEEE.STD_LOGIC_1164.all;

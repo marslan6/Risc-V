@@ -1,17 +1,5 @@
 ----------------------------------------------------------------------------------
 -- Engineer: Mehmet Arslan
--- 
--- Create Date: 04/24/2025 10:42:45 PM
--- Design Name: Program_Counter
--- Module Name: Program_Counter - RTL
--- Project Name: Program_Counter Module
--- Target Devices: Xilinx FPGAs
--- 
--- 
--- Revision: 0.0.0.1
--- Revision 0.01 - File Created
--- Additional Comments:
--- 
 ----------------------------------------------------------------------------------
 library IEEE;
 use IEEE.STD_LOGIC_1164.all;

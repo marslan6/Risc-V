@@ -1,17 +1,5 @@
 ----------------------------------------------------------------------------------
 -- Engineer: Mehmet Arslan
--- 
--- Create Date: 19/17/2025 10:46:30 PM
--- Design Name: Mux_4to1 Module
--- Module Name: Mux_4to1 - Behavioral
--- Project Name: Mux_4to1 Module
--- Target Devices: Xilinx FPGAs
--- 
--- 
--- Revision: 0.0.0.1
--- Revision 0.01 - File Created
--- Additional Comments:
--- 
 ----------------------------------------------------------------------------------
 library IEEE;
 use IEEE.STD_LOGIC_1164.all;

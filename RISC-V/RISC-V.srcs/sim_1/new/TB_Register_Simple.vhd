@@ -1,17 +1,5 @@
 ----------------------------------------------------------------------------------
 -- Engineer: Mehmet Arslan
--- 
--- Create Date: 04/23/2025 07:50:12 PM
--- Design Name: TB_Register_Simple
--- Module Name: TB_Register_Simple - RTL
--- Project Name: TB_Register_Simple Module
--- Target Devices: Xilinx FPGAs
--- 
--- 
--- Revision: 0.0.0.1
--- Revision 0.01 - File Created
--- Additional Comments:
--- 
 ----------------------------------------------------------------------------------
 library IEEE;
 use IEEE.STD_LOGIC_1164.all;
