@@ -34,6 +34,10 @@ architecture RTL of Register_File is
 
 begin
 
+    -- TO DO : 
+    -- Implement 32x1 mux by generate loop
+    -- Introduce arrays for 32 of 32bits signal
+    
     -- Instantiate decoder
     U_DECODER : entity work.Decoder_5to32(RTL)
         port map(
