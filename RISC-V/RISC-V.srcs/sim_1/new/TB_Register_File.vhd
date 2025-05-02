@@ -52,21 +52,107 @@ begin
         ------------------------------------------------------------------
         ------------------------------------------------------------------
         ------------------------------------------------------------------
-        tb_read_address_1_i <= (others => '0');
-        tb_read_address_2_i <= (others => '0');
         tb_write_address_3_i <= (others => '0');
         tb_write_data_3_i <= (others => '0');
         tb_write_enable_3_i <= '0';
         tb_reset_i <= '1';
         wait until rising_edge(tb_clk);
         wait for 1 ns;
-
+        tb_read_address_1_i <= (others => '0');
+        tb_read_address_2_i <= (others => '0');
+        wait for 1 ns;
         assert (tb_read_data_1_o = x"00000000") report "TEST : 0 [FAILED]" severity warning;
         assert (tb_read_data_2_o = x"00000000") report "TEST : 1 [FAILED]" severity warning;
 
         ------------------------------------------------------------------
         ------------------------------------------------------------------
         ------------------------------------------------------------------
+        ---------------------- RESET TEST SCENARIO -----------------------
+        ------------------------------------------------------------------
+        ------------------------------------------------------------------
+        ------------------------------------------------------------------
+        wait for 13 ns;
+        tb_read_address_1_i <= std_logic_vector(to_unsigned(1,5));
+        tb_read_address_2_i <= std_logic_vector(to_unsigned(2,5));
+        wait for 1 ns;
+        assert (tb_read_data_1_o = x"00000000") report "TEST : 1.1 [FAILED]" severity warning;
+        assert (tb_read_data_2_o = x"00000000") report "TEST : 1.2 [FAILED]" severity warning;
+
+        ------------------------------------------------------------------
+        ------------------------------------------------------------------
+        ------------------------------------------------------------------
+        wait for 13 ns;
+        tb_read_address_1_i <= std_logic_vector(to_unsigned(3,5));
+        tb_read_address_2_i <= std_logic_vector(to_unsigned(4,5));
+        wait for 1 ns;
+        assert (tb_read_data_1_o = x"00000000") report "TEST : 1.3 [FAILED]" severity warning;
+        assert (tb_read_data_2_o = x"00000000") report "TEST : 1.4 [FAILED]" severity warning;
+
+                ------------------------------------------------------------------
+        ------------------------------------------------------------------
+        ------------------------------------------------------------------
+        wait for 13 ns;
+        tb_read_address_1_i <= std_logic_vector(to_unsigned(5,5));
+        tb_read_address_2_i <= std_logic_vector(to_unsigned(6,5));
+        wait for 1 ns;
+        assert (tb_read_data_1_o = x"00000000") report "TEST : 1.5 [FAILED]" severity warning;
+        assert (tb_read_data_2_o = x"00000000") report "TEST : 1.6 [FAILED]" severity warning;
+
+        ------------------------------------------------------------------
+        ------------------------------------------------------------------
+        ------------------------------------------------------------------
+        wait for 13 ns;
+        tb_read_address_1_i <= std_logic_vector(to_unsigned(7,5));
+        tb_read_address_2_i <= std_logic_vector(to_unsigned(8,5));
+        wait for 1 ns;
+        assert (tb_read_data_1_o = x"00000000") report "TEST : 1.7 [FAILED]" severity warning;
+        assert (tb_read_data_2_o = x"00000000") report "TEST : 1.8 [FAILED]" severity warning;
+
+        wait for 13 ns;
+        tb_read_address_1_i <= std_logic_vector(to_unsigned(9,5));
+        tb_read_address_2_i <= std_logic_vector(to_unsigned(10,5));
+        wait for 1 ns;
+        assert (tb_read_data_1_o = x"00000000") report "TEST : 1.9 [FAILED]" severity warning;
+        assert (tb_read_data_2_o = x"00000000") report "TEST : 1.10 [FAILED]" severity warning;
+
+        ------------------------------------------------------------------
+        ------------------------------------------------------------------
+        ------------------------------------------------------------------
+        wait for 13 ns;
+        tb_read_address_1_i <= std_logic_vector(to_unsigned(11,5));
+        tb_read_address_2_i <= std_logic_vector(to_unsigned(12,5));
+        wait for 1 ns;
+        assert (tb_read_data_1_o = x"00000000") report "TEST : 1.11 [FAILED]" severity warning;
+        assert (tb_read_data_2_o = x"00000000") report "TEST : 1.12 [FAILED]" severity warning;
+
+        ------------------------------------------------------------------
+        ------------------------------------------------------------------
+        ------------------------------------------------------------------
+        wait for 13 ns;
+        tb_read_address_1_i <= std_logic_vector(to_unsigned(13,5));
+        tb_read_address_2_i <= std_logic_vector(to_unsigned(14,5));
+        wait for 1 ns;
+        assert (tb_read_data_1_o = x"00000000") report "TEST : 1.13 [FAILED]" severity warning;
+        assert (tb_read_data_2_o = x"00000000") report "TEST : 1.14 [FAILED]" severity warning;
+
+        ------------------------------------------------------------------
+        ------------------------------------------------------------------
+        ------------------------------------------------------------------
+        wait for 13 ns;
+        tb_read_address_1_i <= std_logic_vector(to_unsigned(15,5));
+        tb_read_address_2_i <= std_logic_vector(to_unsigned(16,5));
+        wait for 1 ns;
+        assert (tb_read_data_1_o = x"00000000") report "TEST : 1.15 [FAILED]" severity warning;
+        assert (tb_read_data_2_o = x"00000000") report "TEST : 1.16 [FAILED]" severity warning;
+
+        ------------------------------------------------------------------
+        ------------------------------------------------------------------
+        ------------------------------------------------------------------
+        -------------------- RESET TEST SCENARIO END ---------------------
+        ------------------------------------------------------------------
+        ------------------------------------------------------------------
+        ------------------------------------------------------------------
+        ----------------------------------------------------
         wait for 14 ns;
         tb_write_address_3_i <= std_logic_vector(to_unsigned(0, 5)); -- Write to REG0
         tb_write_data_3_i <= x"11111111";
@@ -74,7 +160,9 @@ begin
         tb_reset_i <= '0';
         wait until rising_edge(tb_clk);
         wait for 1 ns;
-
+        tb_read_address_1_i <= (others => '0');
+        tb_read_address_2_i <= (others => '0');
+        wait for 1 ns;
         assert (tb_read_data_1_o = x"11111111") report "TEST : 2 [FAILED]" severity warning;
         assert (tb_read_data_2_o = x"11111111") report "TEST : 3 [FAILED]" severity warning;
 
