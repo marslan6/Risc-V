@@ -3,6 +3,7 @@
 May 22 2024
 19:03:11
 C:/Users/Legion/Desktop/Quartus/Risc-V/RISC-V/RISC-V.srcs/sim_1/new/TB_Adder.vhd,1745682411,vhdl,,,,tb_adder,,,,,,,,
+C:/Users/Legion/Desktop/Quartus/Risc-V/RISC-V/RISC-V.srcs/sim_1/new/TB_DRAM.vhd,1746219649,vhdl,,,,tb_dram,,,,,,,,
 C:/Users/Legion/Desktop/Quartus/Risc-V/RISC-V/RISC-V.srcs/sim_1/new/TB_Decoder_2to4.vhd,1745682736,vhdl,,,,tb_decoder_2to4,,,,,,,,
 C:/Users/Legion/Desktop/Quartus/Risc-V/RISC-V/RISC-V.srcs/sim_1/new/TB_Decoder_4to16.vhd,1745682733,vhdl,,,,tb_decoder_4to16,,,,,,,,
 C:/Users/Legion/Desktop/Quartus/Risc-V/RISC-V/RISC-V.srcs/sim_1/new/TB_Decoder_5to32.vhd,1746040500,vhdl,,,,tb_decoder_5to32,,,,,,,,
@@ -11,10 +12,11 @@ C:/Users/Legion/Desktop/Quartus/Risc-V/RISC-V/RISC-V.srcs/sim_1/new/TB_Mux_16to1
 C:/Users/Legion/Desktop/Quartus/Risc-V/RISC-V/RISC-V.srcs/sim_1/new/TB_Mux_2to1.vhd,1745682729,vhdl,,,,tb_mux_2to1,,,,,,,,
 C:/Users/Legion/Desktop/Quartus/Risc-V/RISC-V/RISC-V.srcs/sim_1/new/TB_Mux_4to1.vhd,1745682725,vhdl,,,,tb_mux_4to1,,,,,,,,
 C:/Users/Legion/Desktop/Quartus/Risc-V/RISC-V/RISC-V.srcs/sim_1/new/TB_Program_Counter.vhd,1745683647,vhdl,,,,tb_program_counter,,,,,,,,
-C:/Users/Legion/Desktop/Quartus/Risc-V/RISC-V/RISC-V.srcs/sim_1/new/TB_Register_File.vhd,1746202661,vhdl,,,,tb_register_file,,,,,,,,
+C:/Users/Legion/Desktop/Quartus/Risc-V/RISC-V/RISC-V.srcs/sim_1/new/TB_Register_File.vhd,1746210829,vhdl,,,,tb_register_file,,,,,,,,
 C:/Users/Legion/Desktop/Quartus/Risc-V/RISC-V/RISC-V.srcs/sim_1/new/TB_Register_Simple.vhd,1746046835,vhdl,,,,tb_register_simple,,,,,,,,
 C:/Users/Legion/Desktop/Quartus/Risc-V/RISC-V/RISC-V.srcs/sim_1/new/TB_Register_Write_Enable.vhd,1745682711,vhdl,,,,tb_register_write_enable,,,,,,,,
 C:/Users/Legion/Desktop/Quartus/Risc-V/RISC-V/RISC-V.srcs/sources_1/new/Adder.vhd,1745682173,vhdl,C:/Users/Legion/Desktop/Quartus/Risc-V/RISC-V/RISC-V.srcs/sim_1/new/TB_Adder.vhd,,,adder,,,,,,,,
+C:/Users/Legion/Desktop/Quartus/Risc-V/RISC-V/RISC-V.srcs/sources_1/new/DRAM.vhd,1746221195,vhdl,C:/Users/Legion/Desktop/Quartus/Risc-V/RISC-V/RISC-V.srcs/sim_1/new/TB_DRAM.vhd,,,dram,,,,,,,,
 C:/Users/Legion/Desktop/Quartus/Risc-V/RISC-V/RISC-V.srcs/sources_1/new/Decoder_2to4.vhd,1745682678,vhdl,C:/Users/Legion/Desktop/Quartus/Risc-V/RISC-V/RISC-V.srcs/sim_1/new/TB_Decoder_2to4.vhd,,,decoder_2to4,,,,,,,,
 C:/Users/Legion/Desktop/Quartus/Risc-V/RISC-V/RISC-V.srcs/sources_1/new/Decoder_4to16.vhd,1745781836,vhdl,C:/Users/Legion/Desktop/Quartus/Risc-V/RISC-V/RISC-V.srcs/sim_1/new/TB_Decoder_4to16.vhd,,,decoder_4to16,,,,,,,,
 C:/Users/Legion/Desktop/Quartus/Risc-V/RISC-V/RISC-V.srcs/sources_1/new/Decoder_5to32.vhd,1746040844,vhdl,C:/Users/Legion/Desktop/Quartus/Risc-V/RISC-V/RISC-V.srcs/sources_1/new/Register_File.vhd,,,decoder_5to32,,,,,,,,
