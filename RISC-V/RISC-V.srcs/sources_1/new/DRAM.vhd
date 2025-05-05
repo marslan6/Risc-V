@@ -2,9 +2,9 @@
 -- Engineer: Mehmet Arslan
 ----------------------------------------------------------------------------------
 library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
-use IEEE.NUMERIC_STD.ALL;
-use STD.TEXTIO.ALL;
+use IEEE.STD_LOGIC_1164.all;
+use IEEE.NUMERIC_STD.all;
+use STD.TEXTIO.all;
 
 entity DRAM is
     generic (
@@ -13,11 +13,11 @@ entity DRAM is
         ADDR_WIDTH : integer range 1 to 9 := 7
     );
     port (
-        clk             : in  std_logic;
-        write_enable_i  : in  std_logic;
-        address_i       : in  std_logic_vector(ADDR_WIDTH - 1 downto 0);
-        data_in_i       : in  std_logic_vector(RAM_WIDTH - 1 downto 0);
-        data_out_o      : out std_logic_vector(RAM_WIDTH - 1 downto 0)
+        clk : in std_logic;
+        write_enable_i : in std_logic;
+        address_i : in std_logic_vector(ADDR_WIDTH - 1 downto 0);
+        data_in_i : in std_logic_vector(RAM_WIDTH - 1 downto 0);
+        data_out_o : out std_logic_vector(RAM_WIDTH - 1 downto 0)
     );
 end entity DRAM;
 
@@ -43,11 +43,11 @@ architecture RTL of DRAM is
     signal RAM : t_distributed_ram := fill_ram_from_file("rams_init_file.mem");
 
 begin
-    
+
     data_out_o <= to_stdlogicvector(RAM(to_integer(unsigned(address_i))));
 
     -- Sequential write and read
-    process(clk)
+    process (clk)
     begin
         if rising_edge(clk) then
             if write_enable_i = '1' then
