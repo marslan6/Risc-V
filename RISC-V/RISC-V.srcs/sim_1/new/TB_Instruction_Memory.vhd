@@ -14,6 +14,7 @@ architecture RTL of TB_Instruction_Memory is
     constant C_RAM_DEPTH : integer range 1 to 512 := 64;
     constant C_RAM_WIDTH : integer range 1 to 64 := 32;
     constant C_ADDR_WIDTH : integer range 1 to 9 := 6;
+    constant C_MEMORY_FILE : string := "instruction_mem_init_file.mem";
 
     -- Signal declarations for INSTRUCTION MEMORY I/O
     signal tb_address_i : std_logic_vector(C_ADDR_WIDTH - 1 downto 0);
@@ -23,7 +24,8 @@ begin
         generic map(
             RAM_DEPTH => C_RAM_DEPTH,
             RAM_WIDTH => C_RAM_WIDTH,
-            ADDR_WIDTH => C_ADDR_WIDTH
+            ADDR_WIDTH => C_ADDR_WIDTH,
+            MEMORY_FILE => C_MEMORY_FILE
         )
         port map(
             address_i => tb_address_i,

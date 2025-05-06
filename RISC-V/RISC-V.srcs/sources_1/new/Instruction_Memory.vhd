@@ -9,7 +9,8 @@ entity Instruction_Memory is
     generic (
         RAM_DEPTH : integer range 1 to 512 := 128;
         RAM_WIDTH : integer range 1 to 64 := 32;
-        ADDR_WIDTH : integer range 1 to 9 := 7
+        ADDR_WIDTH : integer range 1 to 9 := 7;
+        MEMORY_FILE : string := "instruction_mem_init_file.mem"
     );
     port (
         address_i : in std_logic_vector(ADDR_WIDTH - 1 downto 0);
@@ -24,7 +25,8 @@ begin
         generic map (
             RAM_DEPTH => RAM_DEPTH,
             RAM_WIDTH => RAM_WIDTH,
-            ADDR_WIDTH => ADDR_WIDTH
+            ADDR_WIDTH => ADDR_WIDTH,
+            MEMORY_FILE => MEMORY_FILE
         )
         port map (
             clk => '0',
