@@ -22,18 +22,18 @@ architecture RTL of Instruction_Memory is
 begin
 
     U_DRAM : entity work.DRAM(RTL)
-        generic map (
+        generic map(
             RAM_DEPTH => RAM_DEPTH,
             RAM_WIDTH => RAM_WIDTH,
             ADDR_WIDTH => ADDR_WIDTH,
             MEMORY_FILE => MEMORY_FILE
         )
-        port map (
+        port map(
             clk => '0',
             write_enable_i => '0',
             address_i => address_i,
             data_in_i => (others => '0'),
             data_out_o => instruction_o
         );
-    
+
 end architecture RTL;
