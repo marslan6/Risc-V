@@ -10,7 +10,8 @@ entity DRAM is
     generic (
         RAM_DEPTH : integer range 1 to 512 := 128;
         RAM_WIDTH : integer range 1 to 64 := 32;
-        ADDR_WIDTH : integer range 1 to 9 := 7
+        ADDR_WIDTH : integer range 1 to 9 := 7;
+        MEMORY_FILE : string := "default_mem_file.mem"
     );
     port (
         clk : in std_logic;
@@ -40,7 +41,7 @@ architecture RTL of DRAM is
     end function;
 
     -- RAM instance initialized from external file
-    signal RAM : t_distributed_ram := fill_ram_from_file("rams_init_file.mem");
+    signal RAM : t_distributed_ram := fill_ram_from_file(MEMORY_FILE);
 
 begin
 

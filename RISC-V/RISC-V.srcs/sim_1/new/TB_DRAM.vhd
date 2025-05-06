@@ -22,6 +22,7 @@ architecture RTL of TB_DRAM is
     constant C_RAM_DEPTH : integer range 1 to 32 := 16; -- Number of memory rows (16)
     constant C_RAM_WIDTH : integer range 1 to 64 := 32; -- Each row is 32 bits wide
     constant C_ADDR_WIDTH : integer range 1 to 9 := 4; -- 4-bit address supports 16 addresses
+    constant C_MEMORY_FILE : string := "rams_init_file.mem";
 
     -- Signal declarations for DRAM I/O
     signal tb_clk : std_logic;
@@ -37,7 +38,8 @@ begin
         generic map(
             RAM_DEPTH => C_RAM_DEPTH,
             RAM_WIDTH => C_RAM_WIDTH,
-            ADDR_WIDTH => C_ADDR_WIDTH
+            ADDR_WIDTH => C_ADDR_WIDTH,
+            MEMORY_FILE => C_MEMORY_FILE
         )
         port map(
             clk => tb_clk,
