@@ -42,6 +42,10 @@ begin
 
     P_DUT : process
     begin
+        ------------------------------------------------------------------
+        ------------------------------------------------------------------
+        ------------------------------------------------------------------
+        -- lw
         wait for 2 ns;
         tb_instruction_i <= "XXXX" & x"FFF" & "X000" & x"F" & "X0000011";
         tb_zero <= '1';
@@ -54,11 +58,73 @@ begin
         assert (tb_imm_src = "00") report "TEST : 5 [FAILED]" severity warning;
         assert (tb_reg_write = '1') report "TEST : 6 [FAILED]" severity warning;
 
+        ------------------------------------------------------------------
+        ------------------------------------------------------------------
+        ------------------------------------------------------------------
         wait for 10 ns;
+        tb_instruction_i <= "XXXX" & x"FFF" & "X101" & x"F" & "X0000011";
+        tb_zero <= '1';
+        wait for 1 ns;
+        assert (tb_PC_src = '0') report "TEST : 7 [FAILED]" severity warning;
+        assert (tb_result_src = '1') report "TEST : 8 [FAILED]" severity warning;
+        assert (tb_mem_write = '0') report "TEST : 9 [FAILED]" severity warning;
+        assert (tb_alu_control = "000") report "TEST : 10 [FAILED]" severity warning;
+        assert (tb_alu_src = '1') report "TEST : 11 [FAILED]" severity warning;
+        assert (tb_imm_src = "00") report "TEST : 12 [FAILED]" severity warning;
+        assert (tb_reg_write = '1') report "TEST : 13 [FAILED]" severity warning;
+
         ------------------------------------------------------------------
         ------------------------------------------------------------------
         ------------------------------------------------------------------
-        tb_instruction_i <= "XXXX" & x"FFF" & "XXXX" & x"F" & "X0100011";
+        -- sw
+        wait for 10 ns;
+        tb_instruction_i <= "XXXX" & x"FFF" & "X111" & x"F" & "X0100011";
+        tb_zero <= '1';
+        wait for 1 ns;
+        assert (tb_PC_src = '0') report "TEST : 14 [FAILED]" severity warning;
+        assert (tb_result_src = 'X') report "TEST : 15 [FAILED]" severity warning;
+        assert (tb_mem_write = '1') report "TEST : 16 [FAILED]" severity warning;
+        assert (tb_alu_control = "000") report "TEST : 17 [FAILED]" severity warning;
+        assert (tb_alu_src = '1') report "TEST : 18 [FAILED]" severity warning;
+        assert (tb_imm_src = "01") report "TEST : 19 [FAILED]" severity warning;
+        assert (tb_reg_write = '0') report "TEST : 20 [FAILED]" severity warning;
+
+        ------------------------------------------------------------------
+        ------------------------------------------------------------------
+        ------------------------------------------------------------------
+        -- beq
+        wait for 10 ns;
+        tb_instruction_i <= "XXXX" & x"FFF" & "X010" & x"F" & "X1100011";
+        tb_zero <= '1';
+        wait for 1 ns;
+        assert (tb_PC_src = '1') report "TEST : 21 [FAILED]" severity warning;
+        assert (tb_result_src = 'X') report "TEST : 22 [FAILED]" severity warning;
+        assert (tb_mem_write = '0') report "TEST : 23 [FAILED]" severity warning;
+        assert (tb_alu_control = "001") report "TEST : 24 [FAILED]" severity warning;
+        assert (tb_alu_src = '0') report "TEST : 25 [FAILED]" severity warning;
+        assert (tb_imm_src = "10") report "TEST : 26 [FAILED]" severity warning;
+        assert (tb_reg_write = '0') report "TEST : 27 [FAILED]" severity warning;
+
+        ------------------------------------------------------------------
+        ------------------------------------------------------------------
+        ------------------------------------------------------------------
+        wait for 10 ns;
+        tb_instruction_i <= "XXXX" & x"FFF" & "X010" & x"F" & "X1100011";
+        tb_zero <= '1';
+        wait for 1 ns;
+        assert (tb_PC_src = '1') report "TEST : 28 [FAILED]" severity warning;
+        assert (tb_result_src = 'X') report "TEST : 29 [FAILED]" severity warning;
+        assert (tb_mem_write = '0') report "TEST : 30 [FAILED]" severity warning;
+        assert (tb_alu_control = "001") report "TEST : 31 [FAILED]" severity warning;
+        assert (tb_alu_src = '0') report "TEST : 32 [FAILED]" severity warning;
+        assert (tb_imm_src = "10") report "TEST : 33 [FAILED]" severity warning;
+        assert (tb_reg_write = '0') report "TEST : 34 [FAILED]" severity warning;
+        ------------------------------------------------------------------
+        ------------------------------------------------------------------
+        ------------------------------------------------------------------
+        wait for 10 ns;
+        tb_instruction_i <= "XXXX" & x"FFF" & "X010" & x"F" & "X1100011"; -- x010 does not change any result
+        tb_zero <= '1';
 
         ------------------------------------------------------------------
         ------------------------------------------------------------------
