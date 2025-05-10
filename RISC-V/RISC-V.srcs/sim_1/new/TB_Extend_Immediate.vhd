@@ -11,7 +11,7 @@ end entity TB_Extend_Immediate;
 
 architecture RTL of TB_Extend_Immediate is
     constant tb_W : integer range 1 to 64 := 32;
-    signal tb_imm_src_i : std_logic_vector (1 downto 0);
+    signal tb_imm_src_i : std_logic_vector (2 downto 0);
     signal tb_instruction_i : std_logic_vector (tb_W - 1 downto 0);
     signal tb_extended_instruction_o : std_logic_vector (tb_W - 1 downto 0);
 begin
@@ -27,7 +27,7 @@ begin
 
     P_COMBINATIONAL : process
     begin
-        tb_imm_src_i <= "00";
+        tb_imm_src_i <= "000";
         tb_instruction_i <= x"00000000";
         wait for 2 ns;
         assert (tb_extended_instruction_o = x"00000000") report "TEST : 0 [FAILED]" severity warning;
@@ -56,7 +56,7 @@ begin
         ------------------------------------------------------------------
         ------------------------------------------------------------------
         ------------------------------------------------------------------
-        tb_imm_src_i <= "01";
+        tb_imm_src_i <= "001";
         tb_instruction_i <= x"76C19D24";
         wait for 2 ns;
         assert (tb_extended_instruction_o = x"0000077A") report "TEST : 4 [FAILED]" severity warning;
@@ -78,7 +78,7 @@ begin
         ------------------------------------------------------------------
         ------------------------------------------------------------------
         ------------------------------------------------------------------
-        tb_imm_src_i <= "10";
+        tb_imm_src_i <= "010";
         tb_instruction_i <= x"76C19D24";
         wait for 2 ns;
         assert (tb_extended_instruction_o = x"0000077A") report "TEST : 7 [FAILED]" severity warning;
@@ -97,7 +97,13 @@ begin
         wait for 2 ns;
         assert (tb_extended_instruction_o = x"FFFFF00A") report "TEST : 9 [FAILED]" severity warning;
 
-
+        ------------------------------------------------------------------
+        ------------------------------------------------------------------
+        ------------------------------------------------------------------
+        tb_imm_src_i <= "100";
+        tb_instruction_i <= x"12345678";
+        wait for 2 ns;
+        assert (tb_extended_instruction_o = x"12345000") report "TEST : 10 [FAILED]" severity warning;
 
         ------------------------------------------------------------------
         ------------------------------------------------------------------
