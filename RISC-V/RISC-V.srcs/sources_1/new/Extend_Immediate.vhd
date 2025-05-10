@@ -10,7 +10,7 @@ entity Extend_Immediate is
         W : integer range 1 to 64 := 32
     );
     port (
-        imm_src_i : in std_logic_vector (1 downto 0);
+        imm_src_i : in std_logic_vector (2 downto 0);
         instruction_i : in std_logic_vector (W - 1 downto 0);
         extended_instruction_o : out std_logic_vector (W - 1 downto 0)
     );
@@ -22,12 +22,16 @@ begin
     begin
 
         case (imm_src_i) is
-            when "00" =>
+            when "000" =>
                 extended_instruction_o <= (31 downto 12 => instruction_i(31)) & instruction_i(31 downto 20);
-            when "01" =>
+            when "001" =>
                 extended_instruction_o <= (31 downto 12 => instruction_i(31)) & instruction_i(31 downto 25) & instruction_i(11 downto 7);
-            when "10" =>
+            when "010" =>
                 extended_instruction_o <= (31 downto 12 => instruction_i(31)) & instruction_i(7) & instruction_i(30 downto 25) & instruction_i(11 downto 8) & '0';
+            when "011" =>
+                extended_instruction_o <= (31 downto 20 => instruction_i(31)) & instruction_i(19 downto 12) & instruction_i(20) & instruction_i(30 downto 21) & '0';
+            when "100" =>
+                extended_instruction_o <= instruction_i(31 downto 12) & "000000000000"; -- LUI and AUIPC use upper 20 bits and shift left by 12
             when others =>
                 extended_instruction_o <= (others => '0');
         end case;
