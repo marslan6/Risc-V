@@ -48,146 +48,148 @@ begin
     -- PC source depends on branch signal and ALU zero flag
     PC_src <= (branch_s and zero) or jump;
 
-    -- Main decoder
-    P_COMB_MAIN_DECODER : process (opcode)
-    begin
-        case opcode is
-                -- R-type
-            when "0110011" =>
-                reg_write <= '1';
-                imm_src <= "XXX";
-                alu_src_a <= '1'; -- 0:PC 1:RD1 
-                alu_src_b <= '0';
-                mem_write <= '0';
-                result_src <= "00";
-                branch_s <= '0';
-                alu_op <= "10"; -- Depends on INSTRUCTION
-                jump <= '0';
-                PC_src_additional <= '0';
+   -- Main decoder process to generate control signals based on the opcode
+P_COMB_MAIN_DECODER : process (opcode)
+begin
+    -- R-type instruction (Register Type)
+    -- ADD, SUB, AND, OR, XOR, SLL, SRL, SRA
+    when "0110011" =>
+        reg_write <= '1';  -- Write to register is enabled
+        imm_src <= "XXX";  -- No immediate source for R-type
+        alu_src_a <= '1';  -- ALU input A comes from RD1 (first operand)
+        alu_src_b <= '0';  -- ALU input B comes from second register (RD2)
+        mem_write <= '0';  -- No memory write for R-type instructions
+        result_src <= "00"; -- ALU result is the source for the result
+        branch_s <= '0';   -- No branching for R-type
+        alu_op <= "10";    -- ALU operation depends on the instruction (e.g., ADD, SUB, AND)
+        jump <= '0';       -- No jump for R-type
+        PC_src_additional <= '0'; -- No additional PC source for R-type
 
-                -- I-type
-            when "0010011" =>
-                reg_write <= '1';
-                imm_src <= "000";
-                alu_src_a <= '1'; -- 0:PC 1:RD1 
-                alu_src_b <= '1';
-                mem_write <= '0';
-                result_src <= "00";
-                branch_s <= '0';
-                alu_op <= "10"; -- Depends on INSTRUCTION
-                jump <= '0';
-                PC_src_additional <= '0';
+    -- I-type instruction (Immediate Type)
+    -- ADDI, SLTI, ANDI, ORI, XORI, SLLI, SRLI, SRAI, SLTIU
+    when "0010011" =>
+        reg_write <= '1';  -- Write to register is enabled
+        imm_src <= "000";  -- Immediate source is from I-type instruction format (12-bit immediate)
+        alu_src_a <= '1';  -- ALU input A comes from RD1 (first operand)
+        alu_src_b <= '1';  -- ALU input B comes from the immediate
+        mem_write <= '0';  -- No memory write for I-type
+        result_src <= "00"; -- ALU result is the source for the result
+        branch_s <= '0';   -- No branching for I-type
+        alu_op <= "10";    -- ALU operation depends on the instruction
+        jump <= '0';       -- No jump for I-type
+        PC_src_additional <= '0'; -- No additional PC source for I-type
 
-                -- S-type
-            when "0100011" =>
-                reg_write <= '0';
-                imm_src <= "001";
-                alu_src_a <= '1'; -- 0:PC 1:RD1 
-                alu_src_b <= '1';
-                mem_write <= '1';
-                result_src <= "XX";
-                branch_s <= '0';
-                alu_op <= "00"; -- ADD
-                jump <= '0';
-                PC_src_additional <= '0';
+    -- S-type instruction (Store Type)
+    -- SW, SH, SB
+    when "0100011" =>
+        reg_write <= '0';  -- No register write for S-type
+        imm_src <= "001";  -- Immediate source is from S-type format (12-bit immediate)
+        alu_src_a <= '1';  -- ALU input A comes from RD1 (first operand)
+        alu_src_b <= '1';  -- ALU input B comes from the immediate
+        mem_write <= '1';  -- Memory write is enabled
+        result_src <= "XX"; -- No result to store in register
+        branch_s <= '0';   -- No branching for S-type
+        alu_op <= "00";    -- ALU operation is ADD (to calculate memory address)
+        jump <= '0';       -- No jump for S-type
+        PC_src_additional <= '0'; -- No additional PC source for S-type
 
-                -- B-type
-            when "1100011" =>
-                reg_write <= '0';
-                imm_src <= "010";
-                alu_src_a <= '1'; -- 0:PC 1:RD1 
-                alu_src_b <= '0';
-                mem_write <= '0';
-                result_src <= "XX";
-                branch_s <= '1';
-                alu_op <= "10"; -- based on funct3
-                jump <= '0';
-                PC_src_additional <= '0';
+    -- B-type instruction (Branch Type)
+    -- BEQ, BNE, BLTU, BGEU
+    when "1100011" =>
+        reg_write <= '0';  -- No register write for B-type
+        imm_src <= "010";  -- Immediate source is from B-type format (12-bit immediate)
+        alu_src_a <= '1';  -- ALU input A comes from RD1 (first operand)
+        alu_src_b <= '0';  -- ALU input B is 0 (because the immediate is added directly)
+        mem_write <= '0';  -- No memory write for B-type
+        result_src <= "XX"; -- No result to store in register
+        branch_s <= '1';   -- Branching is enabled
+        alu_op <= "10";    -- ALU operation depends on funct3 (e.g., BEQ, BNE)
+        jump <= '0';       -- No jump for B-type
+        PC_src_additional <= '0'; -- No additional PC source for B-type
 
-                -- J-type
-            when "1101111" =>
-                reg_write <= '1';
-                imm_src <= "011";
-                alu_src_a <= 'X'; -- 0:PC 1:RD1 
-                alu_src_b <= 'X';
-                mem_write <= '0';
-                result_src <= "10";
-                branch_s <= '0';
-                alu_op <= "XX";
-                jump <= '1';
-                PC_src_additional <= '0';
+    -- J-type instruction (Jump Type)
+    -- JAL
+    when "1101111" =>
+        reg_write <= '1';  -- Write to register is enabled (to store the return address)
+        imm_src <= "011";  -- Immediate source is from J-type format (20-bit immediate)
+        alu_src_a <= 'X';  -- ALU input A is 'X' (irrelevant)
+        alu_src_b <= 'X';  -- ALU input B is 'X' (irrelevant)
+        mem_write <= '0';  -- No memory write for J-type
+        result_src <= "10"; -- The return address (PC + 4) will be written to the register
+        branch_s <= '0';   -- No branching for J-type
+        alu_op <= "XX";    -- ALU operation is irrelevant for J-type
+        jump <= '1';       -- Jump is enabled for J-type
+        PC_src_additional <= '0'; -- No additional PC source for J-type
 
-                -- L-type
-            when "0000011" =>
-                reg_write <= '1';
-                imm_src <= "000";
-                alu_src_a <= '1'; -- 0:PC 1:RD1 
-                alu_src_b <= '1';
-                mem_write <= '0';
-                result_src <= "01";
-                branch_s <= '0';
-                alu_op <= "00"; -- ADD
-                jump <= '0';
-                PC_src_additional <= '0';
+    -- L-type instruction (Load Type)
+    -- LW, LHU, LBU
+    when "0000011" =>
+        reg_write <= '1';  -- Write to register is enabled
+        imm_src <= "000";  -- Immediate source is from I-type format (12-bit immediate)
+        alu_src_a <= '1';  -- ALU input A comes from RD1 (first operand)
+        alu_src_b <= '1';  -- ALU input B comes from the immediate (address offset)
+        mem_write <= '0';  -- No memory write for L-type
+        result_src <= "01"; -- Memory data is the result to be stored in the register
+        branch_s <= '0';   -- No branching for L-type
+        alu_op <= "00";    -- ALU operation is ADD (to calculate memory address)
+        jump <= '0';       -- No jump for L-type
+        PC_src_additional <= '0'; -- No additional PC source for L-type
 
-                -- LUI Instruction
-                -- LUI x5, 0x12345  ; Load upper 20 bits of 0x12345 into x5 (x5 = 0x12345000)
-            when "0110111" =>
-                reg_write <= '1';
-                imm_src <= "100"; -- TO DO : update extender
-                alu_src_a <= 'X'; -- 0:PC 1:RD1 
-                alu_src_b <= '1';
-                mem_write <= '0';
-                result_src <= "00";
-                branch_s <= '0';
-                alu_op <= ""; -- Assign SrcB directly to ALUResult
-                jump <= '0';
-                PC_src_additional <= '0';
+    -- LUI Instruction (Load Upper Immediate)
+    when "0110111" =>
+        reg_write <= '1';  -- Write to register is enabled
+        imm_src <= "100";  -- Immediate source is from LUI (20-bit upper immediate)
+        alu_src_a <= 'X';  -- ALU input A is 'X' (irrelevant)
+        alu_src_b <= '1';  -- ALU input B comes from the immediate (shifted)
+        mem_write <= '0';  -- No memory write for LUI
+        result_src <= "00"; -- ALU result (upper immediate) is the result to be stored in the register
+        branch_s <= '0';   -- No branching for LUI
+        alu_op <= "";      -- ALU operation is not used in LUI
+        jump <= '0';       -- No jump for LUI
+        PC_src_additional <= '0'; -- No additional PC source for LUI
 
-                -- AUIPC Instruction
-                -- AUIPC x3, 0x12345  ; Set x3 to (PC + 0x12345000)
-                -- Add 2x1 MUX to entrance of SrcA of ALU
-            when "0010111" =>
-                reg_write <= '1';
-                imm_src <= "100"; -- TO DO : update extender
-                alu_src_a <= '0'; -- 0:PC 1:RD1 
-                alu_src_b <= '1';
-                mem_write <= '0';
-                result_src <= "00"; -- ALU sum result
-                branch_s <= '0';
-                alu_op <= "00"; -- ADD
-                jump <= '0';
-                PC_src_additional <= '0';
+    -- AUIPC Instruction (Add Upper Immediate to PC)
+    when "0010111" =>
+        reg_write <= '1';  -- Write to register is enabled
+        imm_src <= "100";  -- Immediate source is from AUIPC (20-bit upper immediate)
+        alu_src_a <= '0';  -- ALU input A comes from PC (add immediate to PC)
+        alu_src_b <= '1';  -- ALU input B comes from the immediate (shifted)
+        mem_write <= '0';  -- No memory write for AUIPC
+        result_src <= "00"; -- ALU result (PC + immediate) is the result to be stored in the register
+        branch_s <= '0';   -- No branching for AUIPC
+        alu_op <= "00";    -- ALU operation is ADD (PC + immediate)
+        jump <= '0';       -- No jump for AUIPC
+        PC_src_additional <= '0'; -- No additional PC source for AUIPC
 
-                -- JALR Instruction
-                -- JALR rd, rs1, imm
-                -- jump to the address stored in PC = rs1 + imm
-                -- stores the return address (PC + 4) in register rd
-            when "1100111" =>
-                reg_write <= '1';
-                imm_src <= "000"; -- I-type immediate
-                alu_src_a <= '1'; -- 0:PC 1:RD1 
-                alu_src_b <= '1';
-                mem_write <= '0';
-                result_src <= "10";
-                branch_s <= '0';
-                alu_op <= "00"; -- ADD
-                jump <= '1';
-                PC_src_additional <= '1';
+    -- JALR Instruction (Jump and Link Register)
+    when "1100111" =>
+        reg_write <= '1';  -- Write to register is enabled (to store the return address)
+        imm_src <= "000";  -- Immediate source is from I-type format (12-bit immediate)
+        alu_src_a <= '1';  -- ALU input A comes from RD1 (rs1 value)
+        alu_src_b <= '1';  -- ALU input B comes from the immediate
+        mem_write <= '0';  -- No memory write for JALR
+        result_src <= "10"; -- The return address (PC + 4) will be written to the register
+        branch_s <= '0';   -- No branching for JALR
+        alu_op <= "00";    -- ALU operation is ADD (PC + immediate)
+        jump <= '1';       -- Jump is enabled for JALR
+        PC_src_additional <= '1'; -- The jump target is calculated from the ALU result
 
-            when others =>
-                reg_write <= '0';
-                imm_src <= "000";
-                alu_src_a <= '0';
-                alu_src_b <= '0';
-                mem_write <= '0';
-                result_src <= "00";
-                branch_s <= '0';
-                alu_op <= "00";
-                jump <= '0';
-                PC_src_additional <= '0';
-        end case;
-    end process;
+    -- Default case for undefined opcodes (set all control signals to their default values)
+    when others =>
+        reg_write <= '0';  -- No register write
+        imm_src <= "000";  -- Default immediate source
+        alu_src_a <= '0';  -- Default ALU input A
+        alu_src_b <= '0';  -- Default ALU input B
+        mem_write <= '0';  -- No memory write
+        result_src <= "00"; -- Default result source
+        branch_s <= '0';   -- No branching
+        alu_op <= "00";    -- Default ALU operation
+        jump <= '0';       -- No jump
+        PC_src_additional <= '0'; -- No additional PC source
+
+    end case;
+end process;
+
 
     -- ALU decoder
     P_COMB_ALU_DECODER : process (funct3, funct7_5, alu_op)
