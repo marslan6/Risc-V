@@ -16,7 +16,7 @@ entity Controller is
         PC_src_additional : out std_logic;
         result_src : out std_logic_vector(1 downto 0);
         mem_write : out std_logic;
-        alu_control : out std_logic_vector(2 downto 0);
+        alu_control : out std_logic_vector(3 downto 0);
         alu_src_a : out std_logic;
         alu_src_b : out std_logic;
         imm_src : out std_logic_vector(2 downto 0);
@@ -198,24 +198,33 @@ begin
 
         case alu_op is
             when "00" => -- For lw/sw
-                alu_control <= "000"; -- ADD
+                alu_control <= "0000"; -- ADD
             when "01" => -- For beq
-                alu_control <= "001"; -- SUB
+                alu_control <= "0001"; -- SUB
             when "10" => -- R-type
                 case funct3 is -- R-type or I-type ALU
                     when "000" =>
                         if op5_fn7_comb = "11" then
-                            alu_control <= "001"; -- SUB
+                            alu_control <= "0001"; -- SUB
                         else
-                            alu_control <= "000"; -- ADD
+                            alu_control <= "0000"; -- ADDI
                         end if;
-                    when "010" => alu_control <= "101"; -- SLT
-                    when "110" => alu_control <= "011"; -- OR
-                    when "111" => alu_control <= "010"; -- AND
-                    when others => alu_control <= "000";
+                    when "001" => alu_control <= "0100"; -- SLLI (Shift Left Logical Immediate)
+                    when "010" => alu_control <= "0101"; -- SLTI (Set Less Than Immediate, signed)
+                    when "011" => alu_control <= "0110"; -- SLTIU (Set Less Than Immediate, Unsigned)
+                    when "100" => alu_control <= "0111"; -- XORI (XOR Immediate)
+                    when "101" =>
+                        if op5_fn7_comb = "00" then
+                            alu_control <= "1000"; -- SRLI (Shift Right Logical Immediate)
+                        else
+                            alu_control <= "1001"; -- SRAI (Shift Right Arithmetic Immediate)
+                        end if;
+                    when "110" => alu_control <= "0011"; -- ORI
+                    when "111" => alu_control <= "0010"; -- ANDI
+                    when others => alu_control <= "0000";
                 end case;
             when others =>
-                alu_control <= "000";
+                alu_control <= "0000";
         end case;
 
     end process;
