@@ -71,6 +71,35 @@ begin
         assert (tb_alu_res_o = x"42150223") report "TEST : 6 [FAILED]" severity warning;
         assert (tb_alu_zero_o = '0') report "TEST : 7 [FAILED]" severity warning;
 
+        ------------------------------------------------------------------
+        ------------------------------------------------------------------
+        ------------------------------------------------------------------
+        tb_alu_control_i <= "0010";
+        tb_src_a_i <= x"AAAAAAAA";
+        tb_src_b_i <= x"55555555";
+        wait for 2 ns;
+        assert (tb_alu_res_o = x"00000000") report "TEST : 8 [FAILED]" severity warning;
+        assert (tb_alu_zero_o = '1') report "TEST : 9 [FAILED]" severity warning;
+
+        ------------------------------------------------------------------
+        ------------------------------------------------------------------
+        ------------------------------------------------------------------
+        tb_src_a_i <= x"AAAAAAAA";
+        tb_src_b_i <= x"55558002";
+        wait for 2 ns;
+        assert (tb_alu_res_o = x"00008002") report "TEST : 10 [FAILED]" severity warning;
+        assert (tb_alu_zero_o = '0') report "TEST : 11 [FAILED]" severity warning;
+
+        ------------------------------------------------------------------
+        ------------------------------------------------------------------
+        ------------------------------------------------------------------
+        tb_alu_control_i <= "0011";
+        tb_src_a_i <= x"AAAAAAAA";
+        tb_src_b_i <= x"55555555";
+        wait for 2 ns;
+        assert (tb_alu_res_o = x"FFFFFFFF") report "TEST : 12 [FAILED]" severity warning;
+        assert (tb_alu_zero_o = '0') report "TEST : 13 [FAILED]" severity warning;
+
         assert (false) report "ALL TESTS PASSED" severity failure;
 
     end process;
