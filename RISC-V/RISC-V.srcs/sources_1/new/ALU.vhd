@@ -30,16 +30,17 @@ begin
     b_unsigned <= unsigned(src_b_i);
 
     alu_zero_o <= '1' when result = std_logic_vector(to_signed(0, W)) else '0';
+    alu_res_o <= result;
 
-    P_COMBINATIONAL : process (a_signed, b_signed, a_unsigned, b_unsigned, alu_control_i)
+    P_COMBINATIONAL : process (alu_control_i, a_unsigned, b_unsigned, a_signed, b_signed, src_a_i, src_b_i)
     begin
 
         case (alu_control_i) is
             when "0000" => -- ADD
-                result <= std_logic_vector(a_signed + b_signed);
+                result <= std_logic_vector(a_unsigned + b_unsigned);
 
             when "0001" => -- SUB
-                result <= std_logic_vector(a_signed - b_signed);
+                result <= std_logic_vector(a_unsigned - b_unsigned);
 
             when "0010" => -- AND
                 result <= src_a_i and src_b_i;
@@ -78,8 +79,6 @@ begin
             when others =>
                 result <= (others => '0');
         end case;
-
-        alu_res_o <= result;
     end process;
 
 end architecture RTL;
