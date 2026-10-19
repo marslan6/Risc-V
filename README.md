@@ -1,4 +1,4 @@
-# RV32I RISC-V Processor Core
+# RV32I RISC-V Processor Core 
 
 [![Architecture](https://img.shields.io/badge/ISA-RISC--V%20RV32I-blue)](https://riscv.org/)
 [![Language](https://img.shields.io/badge/HDL-VHDL-green)](https://en.wikipedia.org/wiki/VHDL)
